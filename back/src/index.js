@@ -1,14 +1,13 @@
 const app = require("./app");
 const sequelize = require("./database/database");
 
-// require("./models/usuarios")
+require("./models/usuarios");
 
 const PORT = 3000;
 
 /* CONSULTAR PARA QUE SIRVE MORGAN Y EL USO DE ESTOS MIDDLEWARES
 //Middleware
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended:false}));
 */
 
 async function main() {

@@ -21,6 +21,9 @@ const usuarios = sequelize.define(
     contrasena: {
       type: DataTypes.STRING,
     },
+    imagen: {
+      type: DataTypes.STRING,
+    },
   },
   {
     timestamps: true,
