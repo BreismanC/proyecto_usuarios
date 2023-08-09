@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 //Importacion de las rutas
 const usuarios = require("./routes/usuarios.routes");
@@ -28,6 +29,9 @@ app.use(
     tempFileDir: "/temp/",
   })
 );
+
+//Permitir el acceso a los archivos publicos
+app.use("/public", express.static(path.join(__dirname, "..", "public")));
 
 //Ruta home
 app.get("/", (req, resp) => {

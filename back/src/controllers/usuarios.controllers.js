@@ -5,6 +5,10 @@ const fs = require("fs");
 const getUsuarios = async (req, res) => {
   try {
     const usuarios = await Usuario.findAll();
+    usuarios.forEach(
+      (usuario) =>
+        (usuario.imagen = `http://localhost:3000/public/images/usuarios/${usuario.imagen}`)
+    );
     res.status(200).json({
       status: "SUCCESS",
       message: "Lista de usuarios",
@@ -25,11 +29,16 @@ const getUsuarioById = async (req, res) => {
   try {
     const usuario = await Usuario.findByPk(id);
 
+    //Validar que el usuario si existe
     if (!usuario)
       return res.status(404).json({
         status: "NOT FOUND",
         message: "Usuario no encontrado",
       });
+
+    //Estableciendo direccion de imagen para usuario
+    const urlImagen = `http://localhost:3000/public/images/usuarios/${usuario.imagen}`;
+    usuario.imagen = urlImagen;
 
     res.status(200).json({
       status: "SUCCESS",
