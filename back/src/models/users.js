@@ -1,28 +1,35 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/database");
 
-const usuarios = sequelize.define(
-  "usuarios",
+const user = sequelize.define(
+  "users",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+      allowNull: false,
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    apellido: {
+    lastname: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    correo: {
+    email: {
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
-    contrasena: {
+    password: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    imagen: {
+    image: {
       type: DataTypes.STRING,
+      defaultValue: "Unknown_person",
     },
   },
   {
@@ -30,4 +37,4 @@ const usuarios = sequelize.define(
   }
 );
 
-module.exports = usuarios;
+module.exports = user;

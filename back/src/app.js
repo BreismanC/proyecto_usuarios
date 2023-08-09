@@ -3,8 +3,8 @@ const app = express();
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
-//Importacion de las rutas
-const usuarios = require("./routes/usuarios.routes");
+// Import routes
+const users = require("./routes/users.routes");
 
 //Middlewares
 //Permite analizar que a través de los cuerpos de la petición se utiliza UTF-8
@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-//Permitir el acceso a los archivos publicos
+//Permitir el acceso a los archivos estaticos
 app.use("/public", express.static(path.join(__dirname, "..", "public")));
 
 //Ruta home
@@ -38,7 +38,7 @@ app.get("/", (req, resp) => {
   resp.send("Prueba de servidor ");
 });
 
-//Ruta "usuarios"
-app.use("/usuarios", usuarios);
+//Rout "user"
+app.use("/users", users);
 
 module.exports = app;

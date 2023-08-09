@@ -1,7 +1,7 @@
 {
-  "name": "proyecto_usuarios",
+  "name": "project_users",
   "version": "1.0.0",
-  "description": "Proyecto usuarios",
+  "description": "Project users",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
