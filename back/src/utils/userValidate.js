@@ -2,14 +2,11 @@
 const requiredFields = (req, res) => {
   const fields = Object.keys(req.body);
   if (fields.length !== 4) {
-    return res.status(400).json({
-      status: "ERROR",
-      message: "No se cumple con la cantidad de campos requeridos",
-    });
+    throw new Error("Cantidad de campos no permitidos");
   }
 };
 
-//Validation if fields are defined in the request body
+//Validates that the required fields are equal to the required fields in User schema
 const fieldsDefined = (req, res) => {
   const fields = Object.keys(req.body);
   if (
@@ -18,10 +15,7 @@ const fieldsDefined = (req, res) => {
     !fields.includes("email") ||
     !fields.includes("password")
   ) {
-    return res.status(400).json({
-      status: "ERROR",
-      message: "Uno o más campos no coinciden con los campos requeridos",
-    });
+    throw new Error("Uno o mas campos no coinciden");
   }
 };
 
@@ -52,6 +46,7 @@ const validatePassword = (password) => {
   );
 };
 
+//Redefinir sin uso de switch
 //Data Type Validation
 const dataType = (req, res) => {
   const errors = {};
@@ -81,11 +76,7 @@ const dataType = (req, res) => {
   });
 
   if (Object.keys(errors).length != 0) {
-    return res.status(400).json({
-      status: "ERROR",
-      message: "Los campos no cumplen con los formatos válidos",
-      error: errors,
-    });
+    throw new Error("Los campos no cumplen con los formatos válidos");
   }
 };
 

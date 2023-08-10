@@ -29,14 +29,14 @@ const getUsers = async (req, res) => {
 //Return a user by ID
 const getUserById = async (req, res) => {
   //Validate that the param is type: integer
-  if (typeof req.params.id !== "number") {
+  const { id } = req.params;
+  if (isNaN(id)) {
     return res.status(400).json({
       status: "ERROR",
-      message: "Id no válido",
+      message: "Id no tiene formato válido",
     });
   }
 
-  const { id } = req.params;
   try {
     const user = await User.findByPk(id);
 
@@ -67,25 +67,25 @@ const getUserById = async (req, res) => {
 
 //Add an user to the users table
 const postUser = async (req, res) => {
-  //Validations
-  userValidations.requiredFields(req, res);
-  userValidations.fieldsDefined(req, res);
-  userValidations.dataType(req, res);
-
   const { name, lastname, email, password } = req.body;
   let image;
   let nameImage = "Unknown_person";
 
-  //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
-  if (req.files && Object.keys(req.files).includes("image")) {
-    image = req.files.image;
-    nameImage = image.name;
-  }
-
-  const path = __dirname;
-  const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
-
   try {
+    //Validations
+    userValidations.requiredFields(req, res);
+    userValidations.fieldsDefined(req, res);
+    userValidations.dataType(req, res);
+
+    //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
+    if (req.files && Object.keys(req.files).includes("image")) {
+      image = req.files.image;
+      nameImage = image.name;
+    }
+
+    const path = __dirname;
+    const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
+
     //Create an user
     const newUser = await User.create({
       name,
@@ -96,7 +96,7 @@ const postUser = async (req, res) => {
     });
 
     //Move the image to server if exists
-    image &&
+    if (image) {
       image.mv(pathImage, (error) => {
         if (error) {
           res.status(500).json({
@@ -106,6 +106,7 @@ const postUser = async (req, res) => {
           });
         }
       });
+    }
 
     res.status(201).json({
       status: "SUCCESS",
@@ -124,33 +125,20 @@ const postUser = async (req, res) => {
 //Modify an user by ID
 const updateUser = async (req, res) => {
   //Validate that the param is type: integer
-  if (typeof req.params.id !== "number") {
+  const { id } = req.params;
+  if (isNaN(id)) {
     return res.status(400).json({
       status: "ERROR",
-      message: "Id no válido",
+      message: "Id no tiene formato válido",
     });
   }
-  const { id } = req.params;
-
-  //Validations
-  userValidations.requiredFields(req, res);
-  userValidations.fieldsDefined(req, res);
-  userValidations.dataType(req, res);
-
-  const { name, lastname, email, password } = req.body;
-  let image;
-  let nameImage = "Unknown_person";
-
-  //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
-  if (req.files && Object.keys(req.files).includes("image")) {
-    image = req.files.image;
-    nameImage = image.name;
-  }
-
-  const path = __dirname;
-  const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
 
   try {
+    //Validations
+    userValidations.requiredFields(req, res);
+    userValidations.fieldsDefined(req, res);
+    userValidations.dataType(req, res);
+
     const user = await User.findByPk(id);
 
     //Validate that the user exists
@@ -160,9 +148,35 @@ const updateUser = async (req, res) => {
         error: "Usuario no encontrado.",
       });
 
+    const { name, lastname, email, password } = req.body;
+    let image;
+    let nameImage = "Unknown_person";
+
+    //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
+    if (req.files && Object.keys(req.files).includes("image")) {
+      image = req.files.image;
+      nameImage = image.name;
+    }
+
+    const path = __dirname;
+    const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
+
     // Delete the previous image if it exists and is different of defualt image
-    if (user.image && user.image !== "Unknown_person") {
+    if (fs.existsSync(pathImage) && user.image !== "Unknown_person") {
       fs.unlinkSync(pathImage.replace(`${nameImage}`, `${user.image}`));
+    }
+
+    //Move the image to the server if exists
+    if (image) {
+      image.mv(pathImage, (error) => {
+        if (error) {
+          res.status(500).json({
+            status: "ERROR",
+            message: "Error al guardar la imagen en el servidor.",
+            error,
+          });
+        }
+      });
     }
 
     //Update user data
@@ -173,18 +187,6 @@ const updateUser = async (req, res) => {
     user.image = nameImage;
 
     await user.save();
-
-    //Move the image to the server if image was loaded and it's different of default image
-    image &&
-      image.mv(pathImage, (error) => {
-        if (error) {
-          res.status(500).json({
-            status: "ERROR",
-            message: "Error al guardar la imagen en el servidor.",
-            error,
-          });
-        }
-      });
 
     res.status(200).json({
       status: "SUCCESS",
@@ -202,7 +204,15 @@ const updateUser = async (req, res) => {
 
 //Delete user by ID
 const deleteUser = async (req, res) => {
+  //Validate that the param is type: integer
   const { id } = req.params;
+  if (isNaN(id)) {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Id no tiene formato válido",
+    });
+  }
+
   try {
     //Find the user in the database
     const user = await User.findByPk(id);
@@ -225,7 +235,7 @@ const deleteUser = async (req, res) => {
     });
 
     //Delete the image if it exists
-    if (user.image) {
+    if (fs.existsSync(pathImage) && user.image !== "Unknown_person") {
       fs.unlinkSync(pathImage);
     }
 
