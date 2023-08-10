@@ -1,6 +1,9 @@
 const User = require("../models/users");
 const fs = require("fs");
 
+//Validations import
+const userValidations = require("../utils/userValidate");
+
 //Return the list of users
 const getUsers = async (req, res) => {
   try {
@@ -25,18 +28,26 @@ const getUsers = async (req, res) => {
 
 //Return a user by ID
 const getUserById = async (req, res) => {
+  //Validate that the param is type: integer
+  if (typeof req.params.id !== "number") {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Id no válido",
+    });
+  }
+
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);
 
-    //Validate that the user if exist
+    //Validate that the user if exists
     if (!user)
       return res.status(404).json({
         status: "ERROR",
         message: "Usuario no encontrado",
       });
 
-    //Estableciendo direccion de imagen para usuario
+    //Setting image address for user
     const urlImage = `http://localhost:3000/public/images/users/${user.image}`;
     user.image = urlImage;
 
@@ -56,9 +67,21 @@ const getUserById = async (req, res) => {
 
 //Add an user to the users table
 const postUser = async (req, res) => {
+  //Validations
+  userValidations.requiredFields(req, res);
+  userValidations.fieldsDefined(req, res);
+  userValidations.dataType(req, res);
+
   const { name, lastname, email, password } = req.body;
-  const image = req.files.image;
-  const nameImage = image.name;
+  let image;
+  let nameImage = "Unknown_person";
+
+  //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
+  if (req.files && Object.keys(req.files).includes("image")) {
+    image = req.files.image;
+    nameImage = image.name;
+  }
+
   const path = __dirname;
   const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
 
@@ -72,16 +95,17 @@ const postUser = async (req, res) => {
       image: nameImage,
     });
 
-    //Move the image to server
-    image.mv(pathImage, (error) => {
-      if (error) {
-        res.status(500).json({
-          status: "ERROR",
-          message: "Error al guardar la imagen en el servidor.",
-          error,
-        });
-      }
-    });
+    //Move the image to server if exists
+    image &&
+      image.mv(pathImage, (error) => {
+        if (error) {
+          res.status(500).json({
+            status: "ERROR",
+            message: "Error al guardar la imagen en el servidor.",
+            error,
+          });
+        }
+      });
 
     res.status(201).json({
       status: "SUCCESS",
@@ -99,10 +123,30 @@ const postUser = async (req, res) => {
 
 //Modify an user by ID
 const updateUser = async (req, res) => {
+  //Validate that the param is type: integer
+  if (typeof req.params.id !== "number") {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Id no válido",
+    });
+  }
   const { id } = req.params;
+
+  //Validations
+  userValidations.requiredFields(req, res);
+  userValidations.fieldsDefined(req, res);
+  userValidations.dataType(req, res);
+
   const { name, lastname, email, password } = req.body;
-  const image = req.files.image;
-  const nameImage = image.name;
+  let image;
+  let nameImage = "Unknown_person";
+
+  //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
+  if (req.files && Object.keys(req.files).includes("image")) {
+    image = req.files.image;
+    nameImage = image.name;
+  }
+
   const path = __dirname;
   const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
 
@@ -116,8 +160,8 @@ const updateUser = async (req, res) => {
         error: "Usuario no encontrado.",
       });
 
-    // Delete the previous image if it exists
-    if (user.image) {
+    // Delete the previous image if it exists and is different of defualt image
+    if (user.image && user.image !== "Unknown_person") {
       fs.unlinkSync(pathImage.replace(`${nameImage}`, `${user.image}`));
     }
 
@@ -130,16 +174,17 @@ const updateUser = async (req, res) => {
 
     await user.save();
 
-    //Move the image to the server
-    image.mv(pathImage, (error) => {
-      if (error) {
-        res.status(500).json({
-          status: "ERROR",
-          message: "Error al guardar la imagen en el servidor.",
-          error,
-        });
-      }
-    });
+    //Move the image to the server if image was loaded and it's different of default image
+    image &&
+      image.mv(pathImage, (error) => {
+        if (error) {
+          res.status(500).json({
+            status: "ERROR",
+            message: "Error al guardar la imagen en el servidor.",
+            error,
+          });
+        }
+      });
 
     res.status(200).json({
       status: "SUCCESS",
