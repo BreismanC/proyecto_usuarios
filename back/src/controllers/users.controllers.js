@@ -2,7 +2,7 @@ const User = require("../models/users");
 const fs = require("fs");
 
 //Validations import
-const userValidations = require("../utils/userValidate");
+const userValidations = require("../validations/userValidate");
 
 //Return the list of users
 const getUsers = async (req, res) => {
@@ -33,7 +33,7 @@ const getUserById = async (req, res) => {
   if (isNaN(id)) {
     return res.status(400).json({
       status: "ERROR",
-      message: "Id no tiene formato válido",
+      message: "Id no tiene formato válido. Verificar que el ID sea numérico",
     });
   }
 
@@ -67,15 +67,15 @@ const getUserById = async (req, res) => {
 
 //Add an user to the users table
 const postUser = async (req, res) => {
-  const { name, lastname, email, password } = req.body;
-  let image;
-  let nameImage = "Unknown_person";
-
   try {
     //Validations
-    userValidations.requiredFields(req, res);
-    userValidations.fieldsDefined(req, res);
-    userValidations.dataType(req, res);
+    userValidations.requiredFieldsValidation(req);
+    userValidations.fieldsDefinedValidation(req);
+    userValidations.dataTypeValidation(req, res);
+
+    const { name, lastname, email, password } = req.body;
+    let image;
+    let nameImage = "Unknown_person";
 
     //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
     if (req.files && Object.keys(req.files).includes("image")) {
@@ -118,6 +118,7 @@ const postUser = async (req, res) => {
       status: "ERROR",
       message: "Error al intentar crear un usuario",
       error: error.message,
+      details: error.details,
     });
   }
 };
@@ -134,11 +135,6 @@ const updateUser = async (req, res) => {
   }
 
   try {
-    //Validations
-    userValidations.requiredFields(req, res);
-    userValidations.fieldsDefined(req, res);
-    userValidations.dataType(req, res);
-
     const user = await User.findByPk(id);
 
     //Validate that the user exists
@@ -147,6 +143,11 @@ const updateUser = async (req, res) => {
         status: "Error",
         error: "Usuario no encontrado.",
       });
+
+    //Validations
+    userValidations.requiredFieldsValidation(req);
+    userValidations.fieldsDefinedValidation(req);
+    userValidations.dataTypeValidation(req);
 
     const { name, lastname, email, password } = req.body;
     let image;
@@ -198,6 +199,7 @@ const updateUser = async (req, res) => {
       status: "ERROR",
       message: "Error al intentar actualizar el usuario con id: " + id,
       error: error.message,
+      details: error.details,
     });
   }
 };

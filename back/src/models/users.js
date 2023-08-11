@@ -29,6 +29,7 @@ const user = sequelize.define(
     },
     image: {
       type: DataTypes.STRING,
+      allowNull: false,
       defaultValue: "Unknown_person",
     },
   },
