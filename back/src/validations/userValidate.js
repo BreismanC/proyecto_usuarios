@@ -9,7 +9,6 @@ const requiredFieldsValidation = (req) => {
   if (req.files) {
     files = Object.keys(req.files);
     fields = fields.concat(files);
-    console.log(fields)
   }
 
   const fieldsExpected = files
