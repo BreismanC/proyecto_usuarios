@@ -1,6 +1,6 @@
 const app = require("./app");
 const config = require("./config/globalConstantsconfig");
-const sequelize = require("./database/database");
+const sequelize = require("./database/models/index");
 
 // require("./models/users");
 
@@ -8,7 +8,7 @@ console.log(`NODE_ENV=${config.NODE_ENV}`);
 
 async function main() {
   try {
-    await sequelize.sync({ force: false });
+    // await sequelize.sync({ force: false });
     console.log("Connection established successfully");
 
     app.listen(config.PORT, config.HOST, () => {

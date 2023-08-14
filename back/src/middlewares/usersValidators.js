@@ -1,7 +1,18 @@
 const userSchema = require("../utils/userSchema");
 
+//Validate that the param is type: integer
+const idFormatValidation = (req, res, next) => {
+  const { id } = req.params;
+  if (isNaN(id)) {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Id no tiene formato válido. Verificar que el ID sea numérico",
+    });
+  }
+  next();
+};
 //Validation of required fields (name, lastname, email, password)
-const requiredFieldsValidation = (req) => {
+const requiredFieldsValidation = (req, res, next) => {
   let fields = Object.keys(req.body);
   let files = null;
   const errors = {};
@@ -19,15 +30,18 @@ const requiredFieldsValidation = (req) => {
   if (fields.length !== fieldsExpected || (files && files.length != 1)) {
     errors.expected = `${fieldsExpected} campos`;
     errors.received = `${fields.length} campos`;
-    const error = new Error("La cantidad de campos no es permitida");
-    error.details = errors;
-    throw error;
+
+    return res.status(400).json({
+      status: "ERROR",
+      message: "La cantidad de campos no es permitida",
+      details: errors,
+    });
   }
+  next();
 };
 
 //Validates that the required fields are equal to the required fields in User schema
-//TODO modificar esto para agregar un error para cada uno
-const fieldsDefinedValidation = (req) => {
+const fieldsDefinedValidation = (req, res, next) => {
   let fields = Object.keys(req.body);
   const userSchemaArray = Object.values(userSchema);
   const errors = {};
@@ -44,10 +58,13 @@ const fieldsDefinedValidation = (req) => {
   });
 
   if (Object.keys(errors).length != 0) {
-    const error = new Error("Los campos no son válidos");
-    error.details = errors;
-    throw error;
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Los campos no son válidos",
+      details: errors,
+    });
   }
+  next();
 };
 
 //Validations of values-fields
@@ -82,7 +99,7 @@ const valuesofFieldsValidations = {
 };
 
 //Data Type Validation
-const dataTypeValidation = (req, res) => {
+const dataTypeValidation = (req, res, next) => {
   const errors = {};
   const fieldsAndValues = Object.entries(req.body);
 
@@ -95,13 +112,17 @@ const dataTypeValidation = (req, res) => {
   });
 
   if (Object.keys(errors).length != 0) {
-    const error = new Error("Los campos no cumplen con los formatos válidos");
-    error.details = errors;
-    throw error;
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Los campos no cumplen con los formatos válidos",
+      details: errors,
+    });
   }
+  next();
 };
 
 const userValidations = {
+  idFormatValidation,
   requiredFieldsValidation,
   fieldsDefinedValidation,
   dataTypeValidation,
