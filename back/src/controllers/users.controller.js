@@ -53,7 +53,8 @@ const getUserById = async (req, res) => {
 const postUser = async (req, res) => {
   try {
     const user = { ...req.body };
-    user.image = { ...req.files.image };
+    user.image = req.files ? { ...req.files.image } : null;
+    console.log(user.image);
     const newUser = await UsersService.postUser(user);
 
     res.status(201).json({
@@ -77,7 +78,7 @@ const updateUser = async (req, res) => {
 
   try {
     const user = { ...req.body };
-    user.image = { ...req.files.image };
+    user.image = req.files ? { ...req.files.image } : null;
     const userUpdated = await UsersService.updateUser(id, user);
 
     if (!userUpdated) {
