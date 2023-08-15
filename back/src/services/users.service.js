@@ -55,6 +55,8 @@ module.exports = {
         image: nameImage,
       });
 
+      console.log({userSaved})
+
       //Move the image to server if exists
       if (image) {
         image.mv(pathImage, (error) => {
