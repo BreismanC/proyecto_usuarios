@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "set HOST=localhost&& set PORT=8000&& node index.js"
+    "db:create": "npx sequelize-cli db:create",
+    "db:seed":"npx sequelize-cli db:seed:all",
+    "test": "set HOST=localhost&& set PORT=3000&&npm run db:seed&& node src/index.js"
   },
   "author": "breismanC",
   "license": "ISC",

@@ -126,7 +126,6 @@ module.exports = {
   deleteUser: async (id) => {
     //Find the user in the database
     const user = await UsersRepository.getUserById(id);
-    console.log({ user });
     //Validate that the user exists
     if (!user) return;
 
@@ -135,7 +134,6 @@ module.exports = {
 
     //Delete user from database
     const userDeleted = await UsersRepository.deleteUser(id);
-    console.log({ userDeleted });
 
     //Delete the image if it exists
     if (fs.existsSync(pathImage) && user.image !== "Unknown_person") {

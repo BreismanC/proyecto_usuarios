@@ -54,7 +54,6 @@ const postUser = async (req, res) => {
   try {
     const user = { ...req.body };
     user.image = req.files ? { ...req.files.image } : null;
-    console.log(user.image);
     const newUser = await UsersService.postUser(user);
 
     res.status(201).json({
@@ -108,7 +107,6 @@ const deleteUser = async (req, res) => {
 
   try {
     const userDeleted = await UsersService.deleteUser(id);
-    console.log({ userDeleted });
     if (!userDeleted) {
       return res.status(404).json({
         status: "ERROR",
