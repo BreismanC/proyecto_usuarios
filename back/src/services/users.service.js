@@ -1,5 +1,16 @@
 const UsersRepository = require("../repositories/users.repository");
 const fs = require("fs");
+const http = require("http");
+
+const options = {
+  hostname: "localhost",
+  port: 3000,
+  path: `/webhook/create-user`,
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
 module.exports = {
   getUsers: async () => {
@@ -67,6 +78,19 @@ module.exports = {
           }
         });
       }
+
+      // Realizar la solicitud HTTP a webhook
+      // const reqWebhookUsers = http.request(options, (resWebhookUsers) => {
+      //   console.log(`Status code: ${resWebhookUsers.statusCode}`);
+      // });
+
+      // reqWebhookUsers.on("error", (error) => {
+      //   throw new Error("Error al enviar la notificación");
+      // });
+
+      // reqWebhookUsers.write(JSON.stringify(userSaved));
+
+      // reqWebhookUsers.end();
 
       return userSaved;
     } catch (error) {
