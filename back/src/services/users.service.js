@@ -9,6 +9,7 @@ const options = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
+    "accept":"*",
   },
 };
 
@@ -80,17 +81,17 @@ module.exports = {
       }
 
       // Realizar la solicitud HTTP a webhook
-      // const reqWebhookUsers = http.request(options, (resWebhookUsers) => {
-      //   console.log(`Status code: ${resWebhookUsers.statusCode}`);
-      // });
+      const reqWebhookUsers = http.request(options, (resWebhookUsers) => {
+        console.log(`Status code: ${resWebhookUsers.statusCode}`);
+      });
 
-      // reqWebhookUsers.on("error", (error) => {
-      //   throw new Error("Error al enviar la notificación");
-      // });
+      reqWebhookUsers.on("error", (error) => {
+        throw new Error("Error al realizar la petición para enviar la notificación");
+      });
 
-      // reqWebhookUsers.write(JSON.stringify(userSaved));
+      reqWebhookUsers.write(JSON.stringify(userSaved));
 
-      // reqWebhookUsers.end();
+      reqWebhookUsers.end();
 
       return userSaved;
     } catch (error) {
