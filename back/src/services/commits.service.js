@@ -27,12 +27,7 @@ class CommitService {
 
   static async postCommit(commit) {
     try {
-      const { author, description, creation_date } = commit;
-      const commitSaved = await CommitRepository.postCommit({
-        author,
-        description,
-        creation_date,
-      });
+      const commitSaved = await CommitRepository.postCommit(commit);
       return commitSaved;
     } catch (error) {
       throw error;
