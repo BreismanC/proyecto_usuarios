@@ -9,5 +9,5 @@ module.exports = {
   PASSWORD_DB: process.env.PASSWORD_DB,
   SEQUELIZE_DIALECT: process.env.SEQUELIZE_DIALECT,
   WEBHOOK_ID: process.env.WEBHOOK_ID,
-  WEBHOOK_TOKEN: procces.env.WEBHOOK_TOKEN,
+  WEBHOOK_TOKEN: process.env.WEBHOOK_TOKEN,
 };

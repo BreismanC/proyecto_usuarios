@@ -7,6 +7,12 @@ router
   .route("/create-user")
   .post(
     webhookUsersController.createUserNotification
-  );
+  )
+  ;
+  router.route("/commit-notification")
+  .post(
+    webhookUsersController.commitNotification
+  )
+  ;
 
 module.exports = router;

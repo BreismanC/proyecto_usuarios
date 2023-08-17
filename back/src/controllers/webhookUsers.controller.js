@@ -18,5 +18,10 @@ class WebhookUserController {
       });
     }
   }
+
+  static async commitNotification(req, res) {
+    console.log(req.body)
+    console.log("test commit-notification")
+  }
 }
 module.exports = WebhookUserController;
