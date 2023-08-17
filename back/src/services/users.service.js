@@ -86,7 +86,6 @@ class UserService {
       });
 
       reqWebhookUsers.on("error", (error) => {
-        console.log(error);
         throw new Error(
           "Error al realizar la petición para enviar la notificación"
         );
