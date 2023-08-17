@@ -1,5 +1,4 @@
 const webhookUsersService = require("../services/webhookUsers.service");
-const WebhookUserService = require("../services/webhookUsers.service");
 
 const createUserNotification = async (req, res) => {
   try {

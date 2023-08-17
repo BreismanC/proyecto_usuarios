@@ -1,9 +1,6 @@
 const UsersService = require("../services/users.service");
 const fs = require("fs");
 
-//Validations import
-const userValidations = require("../middlewares/usersValidators");
-
 //Return the list of users
 const getUsers = async (req, res) => {
   try {

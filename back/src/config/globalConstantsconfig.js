@@ -8,4 +8,6 @@ module.exports = {
   USER_DB: process.env.USER_DB,
   PASSWORD_DB: process.env.PASSWORD_DB,
   SEQUELIZE_DIALECT: process.env.SEQUELIZE_DIALECT,
+  WEBHOOK_ID: process.env.WEBHOOK_ID,
+  WEBHOOK_TOKEN: procces.env.WEBHOOK_TOKEN,
 };
