@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const CommitService = require("./commits.service");
+
 const {
   WEBHOOK_ID,
   WEBHOOK_TOKEN,
@@ -20,6 +22,15 @@ class WebhookUserService {
       return;
     } catch (error) {
       throw new Error(error);
+    }
+  }
+
+  static async saveCommitNotification(commit) {
+    try {
+      const commitSaved = CommitService.postCommit(commit);
+      return commitSaved;
+    } catch (error) {
+      throw new Error("error al intentar guardar el commit");
     }
   }
 }
