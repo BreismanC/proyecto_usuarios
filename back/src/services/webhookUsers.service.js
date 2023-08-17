@@ -27,7 +27,7 @@ class WebhookUserService {
 
   static async saveCommitNotification(commit) {
     try {
-      const commitSaved = CommitService.postCommit(commit);
+      const commitSaved = await CommitService.postCommit(commit);
       return commitSaved;
     } catch (error) {
       throw new Error("error al intentar guardar el commit");
