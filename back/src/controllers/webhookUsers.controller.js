@@ -26,17 +26,13 @@ class WebhookUserController {
       const { head_commit } = req.body;
       console.log(head_commit);
       commit.description = head_commit.message;
-      commit.creation_date= head_commit.timestamp;
+      commit.creation_date = head_commit.timestamp;
       commit.author = head_commit.author.username;
-      const commitSaved = await WebhookUserService.saveCommitNotification(
+      await WebhookUserService.saveCommitNotification(
         commit
       );
 
-      res.status(201).json({
-        status: "SUCCESS",
-        message: "Notificación creada correctamente",
-        data: commitSaved,
-      });
+      res.status(200).send();
     } catch (error) {
       res.status(500).json({
         status: "ERROR",
