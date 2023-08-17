@@ -1,3 +1,4 @@
+const WebhookUserService = require("../services/webhookUsers.service");
 const webhookUsersService = require("../services/webhookUsers.service");
 
 class WebhookUserController {
@@ -20,7 +21,28 @@ class WebhookUserController {
   }
 
   static async commitNotification(req, res) {
-    console.log("test commit-notification")
+    try {
+      let commit = {};
+      const { head_commit } = req.body;
+      commit.description = head_commit.message;
+      commit.dateCreation = head_commit.timestamp;
+      commit.author = head_commit.author.username;
+      const commitSaved = await WebhookUserService.saveCommitNotification(
+        commit
+      );
+
+      res.status(201).json({
+        status: "SUCCESS",
+        message: "Notificación creada correctamente",
+        data: commitSaved,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: "ERROR",
+        message: "Error al intentar guardar el commit",
+        details: error,
+      });
+    }
   }
 }
 module.exports = WebhookUserController;
