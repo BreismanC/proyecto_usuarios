@@ -9,12 +9,12 @@ const options = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "accept":"*",
+    accept: "*",
   },
 };
 
-module.exports = {
-  getUsers: async () => {
+class UserService {
+  static async getUsers() {
     try {
       const users = await UsersRepository.getUsers();
       users.forEach(
@@ -25,9 +25,9 @@ module.exports = {
     } catch (error) {
       throw error; // throw error to the controller
     }
-  },
+  }
 
-  getUserById: async (id) => {
+  static async getUserById(id) {
     try {
       const user = await UsersRepository.getUserById(id);
 
@@ -42,9 +42,9 @@ module.exports = {
     } catch (error) {
       throw error;
     }
-  },
+  }
 
-  postUser: async (user) => {
+  static async postUser(user) {
     try {
       const { name, lastname, email, password, image } = user;
       let nameImage = "Unknown_person";
@@ -86,8 +86,10 @@ module.exports = {
       });
 
       reqWebhookUsers.on("error", (error) => {
-        console.log(error)
-        throw new Error("Error al realizar la petición para enviar la notificación");
+        console.log(error);
+        throw new Error(
+          "Error al realizar la petición para enviar la notificación"
+        );
       });
 
       reqWebhookUsers.write(JSON.stringify(userSaved));
@@ -98,9 +100,9 @@ module.exports = {
     } catch (error) {
       throw error;
     }
-  },
+  }
 
-  updateUser: async (id, user) => {
+  static async updateUser(id, user) {
     try {
       const userFound = await UsersRepository.getUserById(id);
 
@@ -147,9 +149,9 @@ module.exports = {
     } catch (error) {
       throw error;
     }
-  },
+  }
 
-  deleteUser: async (id) => {
+  static async deleteUser(id) {
     //Find the user in the database
     const user = await UsersRepository.getUserById(id);
     //Validate that the user exists
@@ -166,5 +168,7 @@ module.exports = {
       fs.unlinkSync(pathImage);
     }
     return userDeleted;
-  },
-};
+  }
+}
+
+module.exports = UserService;

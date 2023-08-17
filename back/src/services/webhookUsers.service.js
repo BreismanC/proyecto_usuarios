@@ -4,8 +4,8 @@ const {
   WEBHOOK_TOKEN,
 } = require("../config/globalConstantsconfig.js");
 
-module.exports = {
-  createUserNotification: async (user) => {
+class WebhookUserService {
+  static async createUserNotification(user) {
     try {
       // Build the message to send to Discord
       const message = `Nuevo usuario registrado:\nNombre: ${user.name}\nApellido: ${user.lastname}`;
@@ -21,5 +21,7 @@ module.exports = {
     } catch (error) {
       throw new Error(error);
     }
-  },
-};
+  }
+}
+
+module.exports = WebhookUserService;

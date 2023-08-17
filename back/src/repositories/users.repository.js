@@ -1,23 +1,25 @@
 const models = require("../database/models");
 
-module.exports = {
-  getUsers: async () => {
+class UserRepository {
+  static async getUsers() {
     return await models.users.findAll();
-  },
+  }
 
-  getUserById: async (id) => {
+  async getUserById(id) {
     return await models.users.findByPk(id);
-  },
+  }
 
-  postUser: async (user) => {
+  async postUser(user) {
     return await models.users.create(user);
-  },
+  }
 
-  updateUser: async (id, user) => {
+  async updateUser(id, user) {
     return await models.users.update(user, { where: { id } });
-  },
+  }
 
-  deleteUser: async (id) => {
+  async deleteUser(id) {
     return await models.users.destroy({ where: { id } });
-  },
-};
+  }
+}
+
+module.exports = UserRepository;
