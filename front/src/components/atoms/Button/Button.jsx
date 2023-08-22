@@ -1,8 +1,9 @@
 export const Button = (props) => {
   const { title, handleClick } = props;
-  return (
-    <button className="button" onClick={handleClick}>
-      {title}
-    </button>
+
+  return handleClick ? (
+    <button onClick={handleClick}>{title}</button>
+  ) : (
+    <button>{title}</button>
   );
 };
