@@ -1,3 +1,8 @@
+import { SignUpForm } from "@molecules/SignUpForm/SignUpForm";
+
 export const SignUp = () => {
-  return <div>SignUp</div>;
+  return <section>
+    <h1>Registrarse</h1>
+    <SignUpForm />
+  </section>;
 };
