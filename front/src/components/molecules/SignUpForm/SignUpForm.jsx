@@ -5,6 +5,7 @@ import {
   objectToArrayOfValues,
   formatDataSignUp,
 } from "@utils/commonFunctions";
+import { postAPI } from "../../../services/api/apiEndpoints";
 
 const dataSignUpForm = {
   inputs: {
@@ -141,8 +142,14 @@ export const SignUpForm = () => {
     handleSubmit,
   } = useForm();
 
+  const onSubmit = async (data) => {
+    const bodyRequest = formatDataSignUp(data);
+    const responseRequest = await postAPI("users", bodyRequest);
+    console.log({responseRequest});
+  };
+
   return (
-    <form onSubmit={handleSubmit(formatDataSignUp)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {InputsArray.map((element) => {
         return (
           <InputForm

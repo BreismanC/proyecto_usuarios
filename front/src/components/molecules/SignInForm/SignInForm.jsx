@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues } from "@utils/commonFunctions.js";
+import { postAPI } from "../../../services/api/apiEndpoints";
 
 const dataSignInForm = {
   inputs: {
@@ -68,7 +69,10 @@ export const SignInForm = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const dataResponse = postAPI(data)
+    console.log({dataResponse})
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

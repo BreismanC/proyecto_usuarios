@@ -7,7 +7,7 @@ export const objectToArrayOfKeyAndValues = (obj) => {
 };
 
 export const formatDataSignUp = (data) => {
-  var formData = new FormData();
+  const formData = new FormData();
   const arrayData = objectToArrayOfKeyAndValues(data);
 
   const arrayDataFinalToSend = arrayData.filter((element) => {
