@@ -18,11 +18,14 @@ export const formatDataSignUp = (data) => {
     );
   });
 
-  console.log(arrayDataFinalToSend);
+  console.log({ arrayDataFinalToSend });
 
   arrayDataFinalToSend.forEach((element) => {
-    formData.append(`${element[0]}`, element[1]);
+    if (element[0].includes("image")) {
+      formData.append(`${element[0]}`, element[1][0]);
+    } else {
+      formData.append(`${element[0]}`, element[1]);
+    }
   });
-
   return formData;
 };

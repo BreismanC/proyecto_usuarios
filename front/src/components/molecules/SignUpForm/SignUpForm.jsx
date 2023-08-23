@@ -145,7 +145,7 @@ export const SignUpForm = () => {
   const onSubmit = async (data) => {
     const bodyRequest = formatDataSignUp(data);
     const responseRequest = await postAPI("users", bodyRequest);
-    console.log({responseRequest});
+    console.log({ responseRequest });
   };
 
   return (
