@@ -5,19 +5,19 @@ class UserRepository {
     return await models.users.findAll();
   }
 
-  async getUserById(id) {
+  static async getUserById(id) {
     return await models.users.findByPk(id);
   }
 
-  async postUser(user) {
+  static async postUser(user) {
     return await models.users.create(user);
   }
 
-  async updateUser(id, user) {
+  static async updateUser(id, user) {
     return await models.users.update(user, { where: { id } });
   }
 
-  async deleteUser(id) {
+  static async deleteUser(id) {
     return await models.users.destroy({ where: { id } });
   }
 }
