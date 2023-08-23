@@ -55,7 +55,6 @@ const dataSignInForm = {
   },
   button: {
     title: "Iniciar sesión",
-    handleClick: () => console.log("Inicio de sesión"),
   },
 };
 

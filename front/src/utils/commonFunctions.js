@@ -7,7 +7,7 @@ export const objectToArrayOfKeyAndValues = (obj) => {
 };
 
 export const formatDataSignUp = (data) => {
-  const formData = new FormData();
+  var formData = new FormData();
   const arrayData = objectToArrayOfKeyAndValues(data);
 
   const arrayDataFinalToSend = arrayData.filter((element) => {
@@ -20,11 +20,9 @@ export const formatDataSignUp = (data) => {
 
   console.log(arrayDataFinalToSend);
 
-  // arrayDataFinalToSend.forEach((element) => {
-  //   formData.append(`${element[0]}`, element[1]);
-  // });
+  arrayDataFinalToSend.forEach((element) => {
+    formData.append(`${element[0]}`, element[1]);
+  });
 
-  formData.append(arrayDataFinalToSend[0][0], arrayDataFinalToSend[0][1]);
-
-  console.log({ formData });
+  return formData;
 };
