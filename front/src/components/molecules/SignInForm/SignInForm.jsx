@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
-import { objectToArrayOfValues } from "@utils/commonFunctions.js";
-import { postAPI } from "../../../services/api/apiEndpoints";
+import { objectToArrayOfValues } from "@utils/helpers.js";
+import { postAPI } from "../../../services/api/userEndpoints";
 
 const dataSignInForm = {
   inputs: {
@@ -70,8 +70,8 @@ export const SignInForm = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const dataResponse = postAPI(data)
-    console.log({dataResponse})
+    const dataResponse = postAPI(data);
+    console.log({ dataResponse });
   };
 
   return (

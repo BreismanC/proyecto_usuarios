@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+#Enviroment variables
+.env
+
 #Mirage server
 mirageServer.js
