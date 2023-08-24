@@ -1,5 +1,6 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const morgan = require("morgan");
 const path = require("path");
 
 //Configuracion de la app
@@ -14,10 +15,17 @@ const appConfig = (app) => {
   //Configuraciones de cabecera
   //Permite las funciones de HTTP
   app.use((req, res, next) => {
-    res.header("Access-control-Allow-origin", "*");
-    res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
     next();
   });
+
+  //Creación de logs por cada petición hecha
+  app.use(morgan("dev"));
 
   //Permitir el manejo de archivos
   app.use(

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues } from "@utils/helpers.js";
-import { postAPI } from "../../../services/api/userEndpoints";
+import { getUserByEmailAndPassword } from "../../../services/api/userEndpoints";
 
 const dataSignInForm = {
   inputs: {
@@ -15,11 +15,11 @@ const dataSignInForm = {
       validations: {
         required: {
           value: true,
-          message: "Nombre requerido",
+          message: "Correo requerido",
         },
         pattern: {
           value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-          message: "El nombre solo debe contener caracteres alfabéticos",
+          message: "Correo con formato inválido",
         },
       },
     },
@@ -69,8 +69,9 @@ export const SignInForm = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
-    const dataResponse = postAPI(data);
+  const onSubmit = async (data) => {
+    console.log(data);
+    const dataResponse = await getUserByEmailAndPassword("users/sign-in", data);
     console.log({ dataResponse });
   };
 

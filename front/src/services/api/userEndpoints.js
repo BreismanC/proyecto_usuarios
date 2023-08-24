@@ -15,3 +15,16 @@ export async function postAPI(endPoint, data) {
     console.error(e);
   }
 }
+
+export async function getUserByEmailAndPassword(endPoint, data) {
+  try {
+    const response = await axiosInstance.post(`/${endPoint}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}

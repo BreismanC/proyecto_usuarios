@@ -11,6 +11,7 @@ const idFormatValidation = (req, res, next) => {
   }
   next();
 };
+
 //Validation of required fields (name, lastname, email, password)
 const requiredFieldsValidation = (req, res, next) => {
   let fields = Object.keys(req.body);

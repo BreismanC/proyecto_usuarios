@@ -7,6 +7,7 @@ const {
   dataTypeValidation,
 } = require("../middlewares/usersValidators");
 
+const validationsSignIn = require("../validators/signIn.validators");
 const usersController = require("../controllers/users.controller");
 
 router
@@ -18,6 +19,8 @@ router
     dataTypeValidation,
     usersController.postUser
   );
+
+router.route("/sign-in").post(validationsSignIn, usersController.signInUser);
 
 router
   .route("/:id")

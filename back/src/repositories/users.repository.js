@@ -9,6 +9,10 @@ class UserRepository {
     return await models.users.findByPk(id);
   }
 
+  static async getUserByEmail(email) {
+    return await models.users.findOne({ where: { email } });
+  }
+
   static async postUser(user) {
     return await models.users.create(user);
   }

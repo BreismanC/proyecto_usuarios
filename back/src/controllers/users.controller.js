@@ -47,6 +47,39 @@ class UserController {
     }
   }
 
+  //return a validated user
+  static async signInUser(req, res) {
+    console.log(req.body);
+    const { email, password } = req.body;
+    try {
+      const user = await UsersService.signInUser(email, password);
+      //Validate that the user if exists
+      if (!user)
+        return res.status(404).json({
+          status: "ERROR",
+          message: "Usuario no encontrado",
+        });
+
+      if (typeof user === "string")
+        return res.status(401).json({
+          status: "ERROR",
+          message: "Contraseña inválida",
+        });
+
+      res.status(200).json({
+        status: "SUCCESS",
+        message: "Usuario encontrado con éxito.",
+        data: user,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: "ERROR",
+        message: "Error al intentar obtener al usuario con email: " + email,
+        error: error.message,
+      });
+    }
+  }
+
   //Add an user to the users table
   static async postUser(req, res) {
     try {

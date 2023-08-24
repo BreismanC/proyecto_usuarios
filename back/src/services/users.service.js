@@ -44,6 +44,28 @@ class UserService {
     }
   }
 
+  static async signInUser(email, password) {
+    try {
+      const user = await UsersRepository.getUserByEmail(email);
+
+      //Validate that the user if exists
+      if (!user) return;
+
+      //Setting image address for user
+      const urlImage = `http://localhost:3000/public/images/users/${user.image}`;
+      user.image = urlImage;
+
+      //Validate that password is correct
+      const isValidpassword = password === user.password;
+
+      if (!isValidpassword) return "Contraseña incorrecta";
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async postUser(user) {
     try {
       const { name, lastname, email, password, image } = user;
