@@ -71,7 +71,12 @@ class UserService {
         image,
       });
 
-      return tokenGenerated;
+      const userResponse = {
+        user: { id, name, lastname, image },
+        token: tokenGenerated,
+      };
+
+      return userResponse;
     } catch (error) {
       throw error;
     }
@@ -80,7 +85,7 @@ class UserService {
   static async postUser(user) {
     try {
       const { name, lastname, email, password, image } = user;
-      let nameImage = "Unknown_person";
+      let nameImage = "Unknown_person.jpg";
 
       //validate that the image was loaded in request files, otherwise the default image 'unknown_person' will be loaded
       if (image) {
