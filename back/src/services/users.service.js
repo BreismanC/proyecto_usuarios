@@ -1,7 +1,8 @@
 const UsersRepository = require("../repositories/users.repository");
 const fs = require("fs");
 const http = require("http");
-const {generateToken} = require("../security/jwt");
+const { passwordEncoder, passwordValidation } = require("../security/bcrypt");
+const { generateToken } = require("../security/jwt");
 
 const options = {
   hostname: "localhost",
@@ -57,7 +58,9 @@ class UserService {
       user.image = urlImage;
 
       //Validate that password is correct
-      const isValidpassword = password === user.password;
+      console.log({ password, passwordUser: user.password });
+      const isValidpassword = await passwordValidation(password, user.password);
+      console.log({ isValidpassword });
 
       if (!isValidpassword) return "Contraseña incorrecta";
 
@@ -72,7 +75,7 @@ class UserService {
       });
 
       const userResponse = {
-        user: { id, name, lastname, image },
+        user: { id, name, lastname, email, image },
         token: tokenGenerated,
       };
 
@@ -96,12 +99,16 @@ class UserService {
       const path = __dirname;
       const pathImage = path.slice(0, 48) + "/public/images/users/" + nameImage;
 
+      //Password encoder by bcryptjs
+      const hashedPassword = await passwordEncoder(password);
+      console.log(hashedPassword);
+
       //Save an user
       const userSaved = await UsersRepository.postUser({
         name,
         lastname,
         email,
-        password,
+        password: hashedPassword,
         image: nameImage,
       });
 
@@ -175,11 +182,15 @@ class UserService {
         });
       }
 
+      //Password encoder by bcryptjs
+      const hashedPassword = await passwordEncoder(password);
+      console.log(hashedPassword);
+
       const userUpdated = await UsersRepository.updateUser(id, {
         name,
         lastname,
         email,
-        password,
+        password: hashedPassword,
         image: nameImage,
       });
       return userUpdated;
