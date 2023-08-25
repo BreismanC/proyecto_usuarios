@@ -24,11 +24,9 @@ class WebhookUserController {
     try {
       let commit = {};
       const { head_commit } = req.body;
-      console.log(head_commit);
       commit.description = head_commit.message;
       commit.creation_date = head_commit.timestamp;
       commit.author = head_commit.author.username;
-      console.log(commit)
       await WebhookUserService.saveCommitNotification(
         commit
       );

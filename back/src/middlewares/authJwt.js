@@ -13,11 +13,15 @@ const tokenValidation = async (req, res, next) => {
   try {
     const decoded = verifyToken(token);
 
+    console.log(decoded);
+
     next();
   } catch (error) {
-    return res
-      .status(401)
-      .json({ status: "ERROR", message: "No autorizado", details: error });
+    status(401).json({
+      status: "ERROR",
+      message: "No autorizado",
+      details: error.message,
+    });
   }
 };
 

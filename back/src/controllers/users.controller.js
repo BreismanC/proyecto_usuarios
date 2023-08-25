@@ -49,7 +49,6 @@ class UserController {
 
   //return a validated user
   static async signInUser(req, res) {
-    console.log(req.body);
     const { email, password } = req.body;
     try {
       const token = await UsersService.signInUser(email, password);
