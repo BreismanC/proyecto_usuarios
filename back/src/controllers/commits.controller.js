@@ -9,7 +9,7 @@ class commitsController {
       res.status(200).json({
         status: "SUCCESS",
         message: "Lista de commits",
-        data: commits,
+        details: commits,
       });
     } catch (error) {
       return res.status(500).json({
@@ -35,7 +35,7 @@ class commitsController {
       res.status(200).json({
         status: "SUCCESS",
         message: "Commit encontrado con éxito.",
-        data: commit,
+        details: commit,
       });
     } catch (error) {
       return res.status(500).json({
@@ -55,7 +55,7 @@ class commitsController {
       res.status(201).json({
         status: "SUCCESS",
         message: "Commit creado con éxito",
-        data: newCommit,
+        details: newCommit,
       });
     } catch (error) {
       return res.status(500).json({

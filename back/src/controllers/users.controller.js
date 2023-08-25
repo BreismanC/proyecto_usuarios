@@ -10,7 +10,7 @@ class UserController {
       res.status(200).json({
         status: "SUCCESS",
         message: "Lista de usuarios",
-        data: users,
+        details: users,
       });
     } catch (error) {
       return res.status(500).json({
@@ -36,7 +36,7 @@ class UserController {
       res.status(200).json({
         status: "SUCCESS",
         message: "Usuario encontrado con éxito.",
-        data: user,
+        details: user,
       });
     } catch (error) {
       return res.status(500).json({
@@ -52,15 +52,15 @@ class UserController {
     console.log(req.body);
     const { email, password } = req.body;
     try {
-      const user = await UsersService.signInUser(email, password);
+      const token = await UsersService.signInUser(email, password);
       //Validate that the user if exists
-      if (!user)
+      if (!token)
         return res.status(404).json({
           status: "ERROR",
           message: "Usuario no encontrado",
         });
 
-      if (typeof user === "string")
+      if (typeof token === "string" && token.includes("Contraseña incorrecta"))
         return res.status(401).json({
           status: "ERROR",
           message: "Contraseña inválida",
@@ -69,7 +69,7 @@ class UserController {
       res.status(200).json({
         status: "SUCCESS",
         message: "Usuario encontrado con éxito.",
-        data: user,
+        details: token,
       });
     } catch (error) {
       return res.status(500).json({
@@ -90,7 +90,7 @@ class UserController {
       res.status(201).json({
         status: "SUCCESS",
         message: "Usuario creado con éxito",
-        data: newUser,
+        details: newUser,
       });
     } catch (error) {
       return res.status(500).json({

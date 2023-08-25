@@ -36,7 +36,7 @@ const appConfig = (app) => {
   );
 
   //Permitir el acceso a los archivos estaticos
-  app.use("/public", express.static(path.join(__dirname, "..", "public")));
+  app.use("/public", express.static(path.join(__dirname, "../..", "public")));
 };
 
 module.exports = appConfig;

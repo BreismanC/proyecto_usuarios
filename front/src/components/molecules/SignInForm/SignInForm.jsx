@@ -69,10 +69,13 @@ export const SignInForm = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
-    const dataResponse = await getUserByEmailAndPassword("users/sign-in", data);
-    console.log({ dataResponse });
+  const onSubmit = async (dataToFetch) => {
+    const { data } = await getUserByEmailAndPassword(
+      "users/sign-in",
+      dataToFetch
+    );
+    const { details } = data;
+    console.log(details);
   };
 
   return (

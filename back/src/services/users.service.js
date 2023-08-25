@@ -1,6 +1,7 @@
 const UsersRepository = require("../repositories/users.repository");
 const fs = require("fs");
 const http = require("http");
+const generateToken = require("../security/jwt");
 
 const options = {
   hostname: "localhost",
@@ -60,7 +61,17 @@ class UserService {
 
       if (!isValidpassword) return "Contraseña incorrecta";
 
-      return user;
+      //Generate token with user data
+      const { id, name, lastname, image } = user;
+      const tokenGenerated = generateToken({
+        id,
+        name,
+        lastname,
+        email,
+        image,
+      });
+
+      return tokenGenerated;
     } catch (error) {
       throw error;
     }
