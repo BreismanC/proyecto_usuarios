@@ -17,7 +17,7 @@ const tokenValidation = async (req, res, next) => {
 
     next();
   } catch (error) {
-    status(401).json({
+    res.status(401).json({
       status: "ERROR",
       message: "No autorizado",
       details: error.message,
