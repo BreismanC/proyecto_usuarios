@@ -1,7 +1,7 @@
 const UsersRepository = require("../repositories/users.repository");
 const fs = require("fs");
 const http = require("http");
-const generateToken = require("../security/jwt");
+const {generateToken} = require("../security/jwt");
 
 const options = {
   hostname: "localhost",

@@ -3,4 +3,6 @@ node_modules
 ngrok.exe
 response_github.json
 
+.vscode/
+
 images/

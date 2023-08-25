@@ -8,6 +8,8 @@ const {
 } = require("../middlewares/usersValidators");
 
 const validationsSignIn = require("../validators/signIn.validators");
+const tokenValidation = require("../middlewares/authJwt");
+
 const usersController = require("../controllers/users.controller");
 
 router
@@ -26,6 +28,7 @@ router
   .route("/:id")
   .get(idFormatValidation, usersController.getUserById)
   .put(
+    tokenValidation,
     idFormatValidation,
     requiredFieldsValidation,
     fieldsDefinedValidation,

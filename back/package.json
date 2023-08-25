@@ -4,6 +4,7 @@
   "description": "Project users",
   "main": "index.js",
   "scripts": {
+    "start":"node src/index.js",
     "dev": "nodemon src/index.js",
     "db:create": "npx sequelize-cli db:create",
     "db:seed": "npx sequelize-cli db:seed:all",

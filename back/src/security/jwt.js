@@ -1,11 +1,11 @@
 const config = require("../config/globalConstantsconfig");
 const jwt = require("jsonwebtoken");
 
+// secret key that we will use to encrypt the token
+const SECRET_KEY_JWT = config.SECRET_KEY_JWT;
+
 //Payload is the information we want to store in the token
 const generateToken = (payload) => {
-  // secret key that we will use to encrypt the token
-  const SECRET_KEY_JWT = config.SECRET_KEY_JWT;
-
   const options = {
     expiresIn: "1h",
   };
@@ -16,4 +16,13 @@ const generateToken = (payload) => {
   return token;
 };
 
-module.exports = generateToken;
+const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY_JWT);
+    return decoded;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+module.exports = { generateToken, verifyToken };

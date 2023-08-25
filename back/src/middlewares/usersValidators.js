@@ -28,6 +28,8 @@ const requiredFieldsValidation = (req, res, next) => {
     : Object.values(userSchema).filter((field) => field !== userSchema.IMAGE)
         .length;
 
+  console.log({fields})
+  
   if (fields.length !== fieldsExpected || (files && files.length != 1)) {
     errors.expected = `${fieldsExpected} campos`;
     errors.received = `${fields.length} campos`;
