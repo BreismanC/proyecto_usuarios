@@ -1,3 +1,11 @@
+import { Title } from "@atoms/Title/Title";
+import { UserCard } from "@molecules/UserCard/UserCard";
+
 export const User = () => {
-  return <h1>User</h1>;
+  return (
+    <div>
+      <Title title="Perfil del usuario" />
+      <UserCard />
+    </div>
+  );
 };

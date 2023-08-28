@@ -1,9 +1,10 @@
 import { SignInForm } from "@molecules/SignInForm/SignInForm";
+import { Title } from "@atoms/Title/Title";
 
 export const SignIn = () => {
   return (
     <section>
-      <h1>Iniciar sesión</h1>
+      <Title title="Iniciar sesión" />
       <SignInForm />
     </section>
   );

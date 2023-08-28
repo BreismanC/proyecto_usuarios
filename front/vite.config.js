@@ -16,7 +16,10 @@ export default defineConfig({
       "@atoms": `${path.resolve(__dirname, "./src/components/atoms/")}`,
       "@molecules": `${path.resolve(__dirname, "./src/components/molecules/")}`,
       "@organisms": `${path.resolve(__dirname, "./src/components/organisms/")}`,
-      "@utils": `${path.resolve(__dirname, "./src/utils/")}`,
+      "@utilities": `${path.resolve(__dirname, "./src/utilities/")}`,
+      "@redux": `${path.resolve(__dirname, "./src/redux/")}`,
+      "@security": `${path.resolve(__dirname, "./src/security/")}`,
+      "@services": `${path.resolve(__dirname, "./src/services/")}`,
     },
   },
 });

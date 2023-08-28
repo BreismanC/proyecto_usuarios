@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom";
+import { PRIVATE_ROUTES } from "@routes/paths";
 import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
-import { objectToArrayOfValues } from "@utils/helpers.js";
-import { getUserByEmailAndPassword } from "../../../services/api/userEndpoints";
+import { objectToArrayOfValues } from "@utilities/helpers.js";
+import { getUserByEmailAndPassword } from "@services/api/userEndpoints";
+import { useDispatch } from "react-redux";
+import { createUser } from "@redux/states/user";
+import { createToken } from "@redux/states/token";
 
 const dataSignInForm = {
   inputs: {
@@ -63,10 +68,14 @@ export const SignInForm = () => {
   const { inputs, button } = dataSignInForm;
   const InputsArray = objectToArrayOfValues(inputs);
 
+  const dispatcher = useDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const onSubmit = async (dataToFetch) => {
@@ -75,7 +84,10 @@ export const SignInForm = () => {
       dataToFetch
     );
     const { details } = data;
-    console.log(details);
+    dispatcher(createUser(details.user));
+    dispatcher(createToken(details.token));
+    reset();
+    navigate(PRIVATE_ROUTES.USER);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
-import { objectToArrayOfValues, formatDataSignUp } from "@utils/helpers";
+import { objectToArrayOfValues, formatDataSignUp } from "@utilities/helpers";
 import { postAPI } from "../../../services/api/userEndpoints";
 
 const dataSignUpForm = {

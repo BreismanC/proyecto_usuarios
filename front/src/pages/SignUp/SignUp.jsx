@@ -1,8 +1,11 @@
 import { SignUpForm } from "@molecules/SignUpForm/SignUpForm";
+import { Title } from "@atoms/Title/Title";
 
 export const SignUp = () => {
-  return <section>
-    <h1>Registrarse</h1>
-    <SignUpForm />
-  </section>;
+  return (
+    <section>
+      <Title title="Registrarse" />
+      <SignUpForm />
+    </section>
+  );
 };

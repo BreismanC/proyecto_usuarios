@@ -1,9 +1,9 @@
-import { PATHS } from "@routes/paths";
+import { PUBLIC_ROUTES } from "@routes/paths";
 import { Link } from "react-router-dom";
 
 const dataNavbar = [
-  { id: 1, label: "Iniciar sesión", redirect: PATHS.SIGN_IN },
-  { id: 2, label: "Registrarse", redirect: PATHS.SIGN_UP },
+  { id: 1, label: "Iniciar sesión", redirect: PUBLIC_ROUTES.SIGN_IN },
+  { id: 2, label: "Registrarse", redirect: PUBLIC_ROUTES.SIGN_UP },
 ];
 
 export const Navbar = () => {
