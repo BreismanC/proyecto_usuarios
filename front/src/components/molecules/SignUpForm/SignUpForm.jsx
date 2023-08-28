@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues, formatDataSignUp } from "@utilities/helpers";
-import { postAPI } from "../../../services/api/userEndpoints";
+import { UseSignUpFetch } from "@hooks/UseSingUpFetch";
 
 const dataSignUpForm = {
   inputs: {
@@ -139,10 +139,12 @@ export const SignUpForm = () => {
     handleSubmit,
   } = useForm();
 
+  const { isLoading, error, userRegister } = UseSignUpFetch();
+
   const onSubmit = async (data) => {
     const bodyRequest = formatDataSignUp(data);
-    const responseRequest = await postAPI("users", bodyRequest);
-    console.log({ responseRequest });
+    const dataResponse = await userRegister(bodyRequest);
+    console.log(dataResponse);
   };
 
   return (
@@ -157,7 +159,8 @@ export const SignUpForm = () => {
           />
         );
       })}
-      <Button {...button} />
+      {isLoading ? <span>cargando...</span> : <Button {...button} />}
+      {error && <span>{error}</span>}
     </form>
   );
 };

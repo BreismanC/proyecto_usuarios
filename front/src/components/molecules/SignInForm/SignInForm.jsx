@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { UseLoginFetch } from "@hooks/UseLogin";
+import { UseSignInFetch } from "@hooks/UseSignInFetch";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues } from "@utilities/helpers.js";
@@ -69,7 +69,7 @@ export const SignInForm = () => {
     handleSubmit,
   } = useForm();
 
-  const { isLoading, error, userLogIn } = UseLoginFetch();
+  const { isLoading, error, userLogIn } = UseSignInFetch();
 
   const onSubmit = async (dataToFetch) => {
     userLogIn(dataToFetch);
