@@ -16,9 +16,7 @@ export const tokenSlice = createSlice({
     : tokenEmptyState,
   reducers: {
     createToken: async (state, action) => {
-      console.log({token:action.payload})
       const hashedToken = await tokenEncoder(action.payload);
-      console.log({hashedToken});
       persistLocalStorage(TokenKey, hashedToken);
       return action.payload;
     },

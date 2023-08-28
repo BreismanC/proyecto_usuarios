@@ -1,13 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { PRIVATE_ROUTES } from "@routes/paths";
 import { useForm } from "react-hook-form";
+import { UseLoginFetch } from "@hooks/UseLogin";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues } from "@utilities/helpers.js";
-import { getUserByEmailAndPassword } from "@services/api/userEndpoints";
-import { useDispatch } from "react-redux";
-import { createUser } from "@redux/states/user";
-import { createToken } from "@redux/states/token";
 
 const dataSignInForm = {
   inputs: {
@@ -68,26 +63,16 @@ export const SignInForm = () => {
   const { inputs, button } = dataSignInForm;
   const InputsArray = objectToArrayOfValues(inputs);
 
-  const dispatcher = useDispatch();
-  const navigate = useNavigate();
-
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm();
 
+  const { isLoading, error, userLogIn } = UseLoginFetch();
+
   const onSubmit = async (dataToFetch) => {
-    const { data } = await getUserByEmailAndPassword(
-      "users/sign-in",
-      dataToFetch
-    );
-    const { details } = data;
-    dispatcher(createUser(details.user));
-    dispatcher(createToken(details.token));
-    reset();
-    navigate(PRIVATE_ROUTES.USER);
+    userLogIn(dataToFetch);
   };
 
   return (
@@ -102,7 +87,8 @@ export const SignInForm = () => {
           />
         );
       })}
-      <Button {...button} />
+      {isLoading ? <span>cargando...</span> : <Button {...button} />}
+      {error && <span>{error}</span>}
     </form>
   );
 };

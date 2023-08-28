@@ -25,6 +25,6 @@ export async function getUserByEmailAndPassword(endPoint, data) {
     });
     return response;
   } catch (e) {
-    console.log(e);
+    throw new Error(e.response.data.message);
   }
 }
