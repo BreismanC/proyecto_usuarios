@@ -1,16 +1,20 @@
+import "./InputForm.css";
+
 export const InputForm = (props) => {
-  const { id, label, register, name, placeholder, type, validations, errors } =
-    props;
+  const { id, label, register, name, type, validations, errors } = props;
 
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <div className={`field ${name}`}>
+      <label className={`label ${name}`} htmlFor={id}>
+        {label}
+      </label>
       <input
+        className={`input ${name}`}
         type={type}
         id={id}
-        placeholder={placeholder}
         {...register(`${name}`, { ...validations })}
       />
+      {name === "image" && <button>Imagen de perfil</button>}
       {errors[name] && <span>{errors[name].message}</span>}
     </div>
   );

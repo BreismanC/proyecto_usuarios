@@ -1,5 +1,6 @@
 import { PUBLIC_ROUTES } from "@routes/paths";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 const dataNavbar = [
   { id: 1, label: "Iniciar sesión", redirect: PUBLIC_ROUTES.SIGN_IN },
@@ -8,7 +9,7 @@ const dataNavbar = [
 
 export const Navbar = () => {
   return (
-    <ul>
+    <ul className="navbar">
       {dataNavbar.map((option) => (
         <li key={option.id}>
           <Link to={option.redirect}>{option.label}</Link>

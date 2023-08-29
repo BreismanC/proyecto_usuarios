@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { formatDataToFetch } from "@utilities/helpers";
 import { UseUpdateFetch } from "@hooks/UseUpdateFetch";
+import { Form } from "@atoms/Form/Form";
 
 export const UpdateImageForm = () => {
   const [notFoundImage, setNotFoundImage] = useState();
@@ -31,11 +32,11 @@ export const UpdateImageForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <InputUpdateImage register={register} errors={errors} />
       {isLoading ? <span>Cargando...</span> : <Button title="Actualizar" />}
       {notFoundImage && <span>{notFoundImage}</span>}
       {error && <span>{error}</span>}
-    </form>
+    </Form>
   );
 };

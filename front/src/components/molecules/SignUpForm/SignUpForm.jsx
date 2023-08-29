@@ -3,6 +3,7 @@ import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues, formatDataToFetch } from "@utilities/helpers";
 import { UseSignUpFetch } from "@hooks/UseSingUpFetch";
+import { Form } from "@atoms/Form/Form";
 
 const dataSignUpForm = {
   inputs: {
@@ -149,7 +150,7 @@ export const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       {InputsArray.map((element) => {
         return (
           <InputForm
@@ -162,6 +163,6 @@ export const SignUpForm = () => {
       })}
       {isLoading ? <span>cargando...</span> : <Button {...button} />}
       {error && <span>{error}</span>}
-    </form>
+    </Form>
   );
 };

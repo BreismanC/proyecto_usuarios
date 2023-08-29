@@ -3,6 +3,7 @@ import { UseSignInFetch } from "@hooks/UseSignInFetch";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
 import { objectToArrayOfValues } from "@utilities/helpers.js";
+import { Form } from "@atoms/Form/Form";
 
 const dataSignInForm = {
   inputs: {
@@ -76,7 +77,7 @@ export const SignInForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       {InputsArray.map((element) => {
         return (
           <InputForm
@@ -89,6 +90,6 @@ export const SignInForm = () => {
       })}
       {isLoading ? <span>cargando...</span> : <Button {...button} />}
       {error && <span>{error}</span>}
-    </form>
+    </Form>
   );
 };

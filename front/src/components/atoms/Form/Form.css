@@ -1,0 +1,13 @@
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:10px;
+  background-color: var(--form-bg);
+  padding: 40px;
+  max-width: 600px;
+  margin: 40px auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px 4px rgba(var(--form-bg), .3);
+}

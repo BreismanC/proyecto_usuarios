@@ -1,9 +1,13 @@
+import "./Button.css";
+
 export const Button = (props) => {
   const { title, handleClick } = props;
 
   return handleClick ? (
-    <button onClick={handleClick}>{title}</button>
+    <button className={`button`} onClick={handleClick}>
+      {title}
+    </button>
   ) : (
-    <button>{title}</button>
+    <button className={`button`}>{title}</button>
   );
 };
