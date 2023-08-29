@@ -79,6 +79,21 @@ class UserService {
         token: tokenGenerated,
       };
 
+      // Send a request HTTP to Discord webhook
+      const reqWebhookUsers = http.request(options, (resWebhookUsers) => {
+        console.log(`Status code: ${resWebhookUsers.statusCode}`);
+      });
+
+      reqWebhookUsers.on("error", (error) => {
+        throw new Error(
+          "Error al realizar la petición para enviar la notificación"
+        );
+      });
+
+      reqWebhookUsers.write(JSON.stringify(userResponse.user));
+
+      reqWebhookUsers.end();
+
       return userResponse;
     } catch (error) {
       throw error;
@@ -124,21 +139,6 @@ class UserService {
           }
         });
       }
-
-      // Realizar la solicitud HTTP a webhook
-      // const reqWebhookUsers = http.request(options, (resWebhookUsers) => {
-      //   console.log(`Status code: ${resWebhookUsers.statusCode}`);
-      // });
-
-      // reqWebhookUsers.on("error", (error) => {
-      //   throw new Error(
-      //     "Error al realizar la petición para enviar la notificación"
-      //   );
-      // });
-
-      // reqWebhookUsers.write(JSON.stringify(userSaved));
-
-      // reqWebhookUsers.end();
 
       return userSaved;
     } catch (error) {

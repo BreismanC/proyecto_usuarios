@@ -10,7 +10,7 @@ class WebhookUserService {
   static async createUserNotification(user) {
     try {
       // Build the message to send to Discord
-      const message = `Nuevo usuario registrado:\nNombre: ${user.name}\nApellido: ${user.lastname}`;
+      const message = `Nuevo inicio de sesión:\nNombre: ${user.name}\nApellido: ${user.lastname}\nCorreo: ${user.email}`;
 
       // create an instance of the webhook and send the message
       const webhookDiscord = new Discord.WebhookClient({
