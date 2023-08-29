@@ -162,7 +162,7 @@ export const SignUpForm = () => {
         );
       })}
       {isLoading ? <span>cargando...</span> : <Button {...button} />}
-      {error && <span>{error}</span>}
+      {error && <span className="error">{error}</span>}
     </Form>
   );
 };

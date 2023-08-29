@@ -1,5 +1,5 @@
 import { PUBLIC_ROUTES } from "@routes/paths";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const dataNavbar = [
@@ -12,7 +12,12 @@ export const Navbar = () => {
     <ul className="navbar">
       {dataNavbar.map((option) => (
         <li key={option.id}>
-          <Link to={option.redirect}>{option.label}</Link>
+          <NavLink
+            to={option.redirect}
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            {option.label}
+          </NavLink>
         </li>
       ))}
     </ul>

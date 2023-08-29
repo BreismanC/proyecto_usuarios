@@ -36,7 +36,7 @@ export const UpdateImageForm = () => {
       <InputUpdateImage register={register} errors={errors} />
       {isLoading ? <span>Cargando...</span> : <Button title="Actualizar" />}
       {notFoundImage && <span>{notFoundImage}</span>}
-      {error && <span>{error}</span>}
+      {error && <span className="error">{error}</span>}
     </Form>
   );
 };

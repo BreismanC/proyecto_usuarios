@@ -88,8 +88,8 @@ export const SignInForm = () => {
           />
         );
       })}
-      {isLoading ? <span>cargando...</span> : <Button {...button} />}
-      {error && <span>{error}</span>}
+      {isLoading ? <span className="loading">cargando...</span> : <Button {...button} />}
+      {error && <span className="error">{error}</span>}
     </Form>
   );
 };

@@ -14,10 +14,10 @@
   display: block;
   text-decoration: none;
   padding: 15px;
-  background: var(--gray-light-1);
-  color: var(--gray-light);
+  background: var(--gray-light);
+  color: var(--color-principal);
   font-size: 20px;
-  font-weight: var(--font-weigth-normal);
+  font-weight: var(--font-weigth-bold);
   float: left;
   width: 50%;
   text-align: center;
@@ -31,7 +31,7 @@
   font-weight: var(--font-weigth-bold);
 }
 
-.navbar .active a{
+.navbar a.active {
   background: var(--color-principal-dark);
   color: var(--color-secondary);
 }

@@ -182,3 +182,15 @@ h1 {
   font-weight:var(--font-weight-bold);
   margin: 0 0 40px;
 }
+
+span.error{
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-s);
+  color:var(--color-principal-dark);
+}
+
+span.loading{
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-s);
+  color: var(--color-principal);
+}
