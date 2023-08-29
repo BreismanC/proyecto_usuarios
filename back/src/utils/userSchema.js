@@ -6,4 +6,12 @@ const userSchema = {
   IMAGE: "image",
 };
 
-module.exports = userSchema;
+const userUpdateSchema = {
+  ID: "id",
+  NAME: "name",
+  LASTNAME: "lastname",
+  EMAIL: "email",
+  IMAGE: "image",
+};
+
+module.exports = { userSchema, userUpdateSchema };

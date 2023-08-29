@@ -120,6 +120,7 @@ class UserController {
       res.status(200).json({
         status: "SUCCESS",
         message: "Usuario actualizado con éxito.",
+        details: userUpdated,
       });
     } catch (error) {
       return res.status(500).json({

@@ -11,13 +11,12 @@ export const TokenKey = "token";
 
 export const tokenSlice = createSlice({
   name: TokenKey,
-  initialState: localStorage.getItem(TokenKey)
-    ? JSON.parse(localStorage.getItem(TokenKey))
-    : tokenEmptyState,
+  initialState: localStorage.getItem(TokenKey) || tokenEmptyState,
   reducers: {
-    createToken: async (state, action) => {
-      const hashedToken = await tokenEncoder(action.payload);
-      persistLocalStorage(TokenKey, hashedToken);
+    createToken: (state, action) => {
+      // const hashedToken = await tokenEncoder(action.payload);
+      // persistLocalStorage(TokenKey, hashedToken);
+      persistLocalStorage(TokenKey, action.payload);
       return action.payload;
     },
 

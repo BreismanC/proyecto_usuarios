@@ -4,6 +4,7 @@ const {
   idFormatValidation,
   requiredFieldsValidation,
   fieldsDefinedValidation,
+  fieldsDefinedValidationToUpdate,
   dataTypeValidation,
 } = require("../middlewares/usersValidators");
 
@@ -30,8 +31,7 @@ router
   .put(
     tokenValidation,
     idFormatValidation,
-    requiredFieldsValidation,
-    fieldsDefinedValidation,
+    fieldsDefinedValidationToUpdate,
     dataTypeValidation,
     usersController.updateUser
   )

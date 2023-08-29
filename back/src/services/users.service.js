@@ -147,6 +147,7 @@ class UserService {
   }
 
   static async updateUser(id, user) {
+    let hashedPassword;
     try {
       const userFound = await UsersRepository.getUserById(id);
 
@@ -183,17 +184,32 @@ class UserService {
       }
 
       //Password encoder by bcryptjs
-      const hashedPassword = await passwordEncoder(password);
-      console.log(hashedPassword);
+      if (password) {
+        hashedPassword = await passwordEncoder(password);
+        const userUpdated = await UsersRepository.updateUser(id, {
+          name,
+          lastname,
+          email,
+          password: hashedPassword,
+          image: nameImage,
+        });
+        return userUpdated;
+      }
+
+      //Setting image address for user
+      const urlImage = `http://localhost:3000/public/images/users/${nameImage}`;
+      user.image = urlImage;
 
       const userUpdated = await UsersRepository.updateUser(id, {
         name,
         lastname,
         email,
-        password: hashedPassword,
         image: nameImage,
       });
-      return userUpdated;
+      return {
+        id,
+        ...user,
+      };
     } catch (error) {
       throw error;
     }

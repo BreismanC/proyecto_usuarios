@@ -1,5 +1,7 @@
 export const persistLocalStorage = (key, value) => {
-  localStorage.setItem(key, JSON.stringify({ ...value }));
+  if (typeof value !== "string")
+    return localStorage.setItem(key, JSON.stringify({ ...value }));
+  return localStorage.setItem(key, value);
 };
 
 export const clearLocalStorage = (key) => {

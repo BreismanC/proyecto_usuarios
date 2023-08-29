@@ -28,3 +28,19 @@ export async function getUserByEmailAndPassword(endPoint, data) {
     throw new Error(e.response.data.message);
   }
 }
+
+export async function updateAPI(endPoint, data, token) {
+  try {
+    const response = await axiosInstance.put(`/${endPoint}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log({ response });
+    return response;
+  } catch (e) {
+    throw new Error(e.response.data.message);
+  }
+}

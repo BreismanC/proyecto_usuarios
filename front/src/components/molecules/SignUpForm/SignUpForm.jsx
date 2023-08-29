@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { InputForm } from "@atoms/InputForm/InputForm";
 import { Button } from "@atoms/Button/Button";
-import { objectToArrayOfValues, formatDataSignUp } from "@utilities/helpers";
+import { objectToArrayOfValues, formatDataToFetch } from "@utilities/helpers";
 import { UseSignUpFetch } from "@hooks/UseSingUpFetch";
 
 const dataSignUpForm = {
@@ -142,7 +142,8 @@ export const SignUpForm = () => {
   const { isLoading, error, userRegister } = UseSignUpFetch();
 
   const onSubmit = async (data) => {
-    const bodyRequest = formatDataSignUp(data);
+    console.log(data);
+    const bodyRequest = formatDataToFetch(data);
     const dataResponse = await userRegister(bodyRequest);
     console.log(dataResponse);
   };

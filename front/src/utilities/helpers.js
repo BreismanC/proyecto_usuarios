@@ -6,7 +6,7 @@ export const objectToArrayOfKeyAndValues = (obj) => {
   return Object.entries(obj);
 };
 
-export const formatDataSignUp = (data) => {
+export const formatDataToFetch = (data) => {
   const formData = new FormData();
   const arrayData = objectToArrayOfKeyAndValues(data);
 
@@ -17,8 +17,6 @@ export const formatDataSignUp = (data) => {
         objectToArrayOfValues(element[1]).length !== 0)
     );
   });
-
-  console.log({ arrayDataFinalToSend });
 
   arrayDataFinalToSend.forEach((element) => {
     if (element[0].includes("image")) {

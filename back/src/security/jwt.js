@@ -7,8 +7,7 @@ const SECRET_KEY_JWT = config.SECRET_KEY_JWT;
 //Payload is the information we want to store in the token
 const generateToken = (payload) => {
   const options = {
-    // expiresIn: "1h",
-    expiresIn: 120,
+    expiresIn: "1h",
   };
 
   // sing is responsible for encrypting the token

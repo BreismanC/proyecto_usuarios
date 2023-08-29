@@ -1,4 +1,4 @@
-const userSchema = require("../utils/userSchema");
+const { userSchema, userUpdateSchema } = require("../utils/userSchema");
 
 //Validate that the param is type: integer
 const idFormatValidation = (req, res, next) => {
@@ -68,8 +68,37 @@ const fieldsDefinedValidation = (req, res, next) => {
   next();
 };
 
+const fieldsDefinedValidationToUpdate = (req, res, next) => {
+  let fields = Object.keys(req.body);
+  const userSchemaArray = Object.values(userUpdateSchema);
+  const errors = {};
+  let files;
+
+  if (req.files) {
+    files = Object.keys(req.files);
+    fields = [...fields, ...files];
+  }
+
+  fields.forEach((field) => {
+    if (!userSchemaArray.includes(field))
+      errors[field] = `El campo ${field} no es permitido`;
+  });
+
+  if (Object.keys(errors).length != 0) {
+    return res.status(400).json({
+      status: "ERROR",
+      message: "Los campos no son válidos",
+      details: errors,
+    });
+  }
+  next();
+};
+
 //Validations of values-fields
 const valuesofFieldsValidations = {
+  //Id validation (id is required like a number)
+  id: (id) => typeof parseInt(id) == "number",
+
   //Name validation(the name must be of type string and have a maximum length of 100 characters)
   name: (name) => {
     return typeof name === "string" && /^[A-Za-z ]{1,100}$/.test(name);
@@ -126,6 +155,7 @@ const userValidations = {
   idFormatValidation,
   requiredFieldsValidation,
   fieldsDefinedValidation,
+  fieldsDefinedValidationToUpdate,
   dataTypeValidation,
 };
 
