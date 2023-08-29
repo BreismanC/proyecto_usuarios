@@ -14,7 +14,7 @@
 }
 
 .label.active {
-  transform: translateY(60px);
+  transform: translateY(-15px);
   left: 2px;
   font-size: 14px;
 }

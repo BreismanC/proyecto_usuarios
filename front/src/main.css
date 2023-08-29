@@ -1,20 +1,4 @@
 /* Variables */
-/*
-$white: #ffffff;
-
-
-$main-light: lighten($main,5%);
-$main-dark: darken($main,5%);
-
-$gray-light: #a0b3b0;
-$gray: #ddd;
-
-$thin: 300;
-$normal: 400;
-$bold: 600;
-*/
-
-
 :root {
   --body-bg: #c1bdba;
   --color-principal: #1ab188;

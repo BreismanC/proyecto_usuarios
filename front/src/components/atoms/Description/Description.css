@@ -1,0 +1,14 @@
+.description{
+  color: var(--color-principal-dark);
+  font-weight: var(--font-weigth-normal);
+  font-size: var(--font-size-m);
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--gray-light);
+  width: 90%;
+}
+
+.description__span{
+  color:var(--color-principal);
+  font-weight: var(--font-weight-bold);
+}

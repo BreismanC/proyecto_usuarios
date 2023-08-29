@@ -3,7 +3,7 @@ import { InputForm } from "@atoms/InputForm/InputForm";
 const imageData = {
   id: "update-image",
   name: "image",
-  label: "Imagen de perfil",
+  label: "Cambiar imagen",
   placeholder: "📎",
   type: "file",
   validations: {
