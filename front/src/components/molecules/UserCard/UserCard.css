@@ -1,6 +1,7 @@
 .userCard{
   width: 70%;
   max-width: 800px;
+  min-height: 40vh;
   margin: auto;
   background-color: var(--color-secondary);
   border:1px solid var(--gray-light);
@@ -13,7 +14,6 @@
 }
 
 .userCard .containerImage{
-  /* border:1px solid blue; */
   height: 100%;
   width: 50%;
   border-radius: var(--border-radius);

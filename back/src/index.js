@@ -2,8 +2,6 @@ const app = require("./app");
 const config = require("./config/globalConstantsconfig");
 const sequelize = require("./database/models/index");
 
-// require("./models/users");
-
 console.log(`NODE_ENV=${config.NODE_ENV}`);
 
 async function main() {

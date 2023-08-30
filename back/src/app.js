@@ -3,7 +3,7 @@ const app = express();
 const appConfig = require("./config/appConfig");
 const routerConfig = require("./config/routerConfig");
 
-//Configuracion de la app
+//App configuration and Router configuration
 appConfig(app);
 routerConfig(app);
 

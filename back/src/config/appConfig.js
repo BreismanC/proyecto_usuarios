@@ -3,7 +3,7 @@ const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const path = require("path");
 
-//Configuracion de la app
+//App configuration
 const appConfig = (app) => {
   //Permite analizar que a través de los cuerpos de la petición se utiliza UTF-8 y pueda recibir formularios
   app.use(express.urlencoded({ extended: false }));

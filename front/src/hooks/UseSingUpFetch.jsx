@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PUBLIC_ROUTES } from "@routes/paths";
 import { postAPI } from "@services/api/userEndpoints";
+import Swal from "sweetalert2";
+
 
 export const UseSignUpFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +20,7 @@ export const UseSignUpFetch = () => {
 
       const { details } = data;
       console.log(details);
-      alert(data.message);
+      Swal.fire("Usuario creado.", "Debes iniciar sesión", "success");
       navigate(PUBLIC_ROUTES.SIGN_IN);
     } catch (e) {
       setError(e.message);
