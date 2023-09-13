@@ -58,9 +58,7 @@ class UserService {
       user.image = urlImage;
 
       //Validate that password is correct
-      console.log({ password, passwordUser: user.password });
       const isValidpassword = await passwordValidation(password, user.password);
-      console.log({ isValidpassword });
 
       if (!isValidpassword) return "Contraseña incorrecta";
 

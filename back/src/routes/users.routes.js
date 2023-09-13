@@ -8,22 +8,27 @@ const {
   dataTypeValidation,
 } = require("../middlewares/usersValidators");
 
-const validationsSignIn = require("../validators/signIn.validators");
+const validationSchema = require("../validators/validationSchema.validators");
+const userSchemas = require("../schemas/user.schemas");
 const tokenValidation = require("../middlewares/authJwt");
 
 const usersController = require("../controllers/users.controller");
 
+//!Falta implementar las validaciones para las imágenes 
 router
   .route("/")
   .get(usersController.getUsers)
   .post(
-    requiredFieldsValidation,
-    fieldsDefinedValidation,
-    dataTypeValidation,
+    validationSchema(userSchemas.createUserSchema),
     usersController.postUser
   );
 
-router.route("/sign-in").post(validationsSignIn, usersController.signInUser);
+router
+  .route("/sign-in")
+  .post(
+    validationSchema(userSchemas.userSchemaLogin),
+    usersController.signInUser
+  );
 
 router
   .route("/:id")
