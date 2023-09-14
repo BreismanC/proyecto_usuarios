@@ -1,3 +1,4 @@
+const UserService = require("../services/users.service");
 const UsersService = require("../services/users.service");
 const fs = require("fs");
 
@@ -126,6 +127,81 @@ class UserController {
       return res.status(500).json({
         status: "ERROR",
         message: "Error al intentar actualizar el usuario con id: " + id,
+        error: error.message,
+        details: error.details,
+      });
+    }
+  }
+
+  //Modify password user by EMAIL
+  static async updatePasswordByEmail(req, res) {
+    const password = req.body.password;
+    const user = req.user;
+    try {
+      const userUpdated = await UserService.updatePasswordByEmail(
+        password,
+        user
+      );
+
+      if (!userUpdated) {
+        return res.status(404).json({
+          status: "ERROR",
+          message: "Usuario no encontrado",
+        });
+      }
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({
+        status: "ERROR",
+        message:
+          "Error al intentar actualizar el usuario con email: " + user.email,
+        error: error.message,
+        details: error.details,
+      });
+    }
+  }
+
+  static async updateNameByEmail(req, res) {
+    const name = req.body.name;
+    const user = req.user;
+    try {
+      const userUpdated = await UserService.updateNameByEmail(name, user);
+
+      if (!userUpdated) {
+        return res.status(404).json({
+          status: "ERROR",
+          message: "Usuario no encontrado",
+        });
+      }
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({
+        status: "ERROR",
+        message:
+          "Error al intentar actualizar el usuario con email: " + user.email,
+        error: error.message,
+        details: error.details,
+      });
+    }
+  }
+  static async updateLastnameByEmail(req, res) {
+    const lastname = req.body.lastname;
+    const user = req.user;
+    try {
+      const userUpdated = await UserService.updateLastnameByEmail(lastname, user);
+
+      if (!userUpdated) {
+        return res.status(404).json({
+          status: "ERROR",
+          message: "Usuario no encontrado",
+        });
+      }
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({
+        status: "ERROR",
+        message:
+          "Error al intentar actualizar el usuario con email: " + user.email,
         error: error.message,
         details: error.details,
       });

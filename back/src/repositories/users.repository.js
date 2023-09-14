@@ -21,6 +21,12 @@ class UserRepository {
     return await models.users.update(user, { where: { id } });
   }
 
+  static async updateFieldUserByEmail(payload, email) {
+    return await models.users.update(payload, {
+      where: { email },
+    });
+  }
+
   static async deleteUser(id) {
     return await models.users.destroy({ where: { id } });
   }

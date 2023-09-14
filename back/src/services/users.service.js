@@ -3,6 +3,7 @@ const fs = require("fs");
 const http = require("http");
 const { passwordEncoder, passwordValidation } = require("../security/bcrypt");
 const { generateToken } = require("../security/jwt");
+const UserRepository = require("../repositories/users.repository");
 
 const options = {
   hostname: "localhost",
@@ -208,6 +209,69 @@ class UserService {
         id,
         ...user,
       };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async updatePasswordByEmail(password, user) {
+    let hashedPassword;
+    try {
+      const userFound = await UserRepository.getUserByEmail(user.email);
+
+      //Validate that the user exists
+      if (!userFound) return;
+
+      //Password encoder by bcryptjs
+      hashedPassword = await passwordEncoder(password);
+      const payload = { password: hashedPassword };
+
+      //Update password into db
+      const userUpdated = await UserRepository.updateFieldUserByEmail(
+        payload,
+        user.email
+      );
+      return userUpdated;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async updateNameByEmail(name, user) {
+    try {
+      const userFound = await UserRepository.getUserByEmail(user.email);
+
+      //Validate that the user exists
+      if (!userFound) return;
+
+      const payload = { name };
+
+      //Update password into db
+      const userUpdated = await UserRepository.updateFieldUserByEmail(
+        payload,
+        user.email
+      );
+      return userUpdated;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async updateLastnameByEmail(lastname, user) {
+    try {
+      const userFound = await UserRepository.getUserByEmail(user.email);
+
+      //Validate that the user exists
+      if (!userFound) return;
+
+      const payload = { lastname };
+
+      //Update password into db
+      const userUpdated = await UserRepository.updateFieldUserByEmail(
+        payload,
+        user.email
+      );
+      return userUpdated;
     } catch (error) {
       throw error;
     }

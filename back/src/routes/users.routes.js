@@ -14,7 +14,7 @@ const tokenValidation = require("../middlewares/authJwt");
 
 const usersController = require("../controllers/users.controller");
 
-//!Falta implementar las validaciones para las imágenes 
+//!Falta implementar las validaciones para las imágenes
 router
   .route("/")
   .get(usersController.getUsers)
@@ -22,6 +22,13 @@ router
     validationSchema(userSchemas.createUserSchema),
     usersController.postUser
   );
+
+router
+  .route("/password")
+  .put(tokenValidation, usersController.updatePasswordByEmail);
+
+router.route("/name").put(tokenValidation, usersController.updateNameByEmail);
+router.route("/lastname").put(tokenValidation, usersController.updateLastnameByEmail);
 
 router
   .route("/sign-in")

@@ -14,6 +14,7 @@ const tokenValidation = async (req, res, next) => {
     const decoded = verifyToken(token);
 
     console.log(decoded);
+    req.user = decoded;
 
     next();
   } catch (error) {
