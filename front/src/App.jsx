@@ -6,6 +6,7 @@ import { Header } from "@molecules/Header/Header";
 import { User } from "@pages/User/User";
 import { SignIn } from "@pages/SignIn/SignIn";
 import { SignUp } from "@pages/SignUp/SignUp";
+import { EmailValidate } from "./pages/EmailValidate/EmailValidate";
 
 export const App = () => {
   const token = useSelector((store) => store.token);
@@ -23,6 +24,9 @@ export const App = () => {
         {/* Public routes */}
         <Route path={PUBLIC_ROUTES.SIGN_IN} element={<SignIn />} />
         <Route path={PUBLIC_ROUTES.SIGN_UP} element={<SignUp />} />
+        <Route path={PUBLIC_ROUTES.VALIDATE_EMAIL}>
+          <Route path="*" element={<EmailValidate /> } />
+        </Route>
         <Route path={PUBLIC_ROUTES.NOT_FOUND} element={<h1>NOT FOUND</h1>} />
       </Routes>
     </>
