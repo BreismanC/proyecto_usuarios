@@ -21,6 +21,12 @@ class UserRepository {
     return await models.users.update(user, { where: { id } });
   }
 
+  /**
+   * This function updates any field of the users model passed in the payload.
+   * @param {*} payload
+   * @param {*} email
+   * @returns
+   */
   static async updateFieldUserByEmail(payload, email) {
     return await models.users.update(payload, {
       where: { email },

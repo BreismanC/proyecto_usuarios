@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { PUBLIC_ROUTES } from "@routes/paths";
+// import { useNavigate } from "react-router-dom";
+// import { PUBLIC_ROUTES } from "@routes/paths";
 import { postAPI } from "@services/api/userEndpoints";
 import Swal from "sweetalert2";
 
@@ -8,7 +8,7 @@ export const UseSignUpFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const userRegister = async (dataToFetch) => {
     setIsLoading(true);

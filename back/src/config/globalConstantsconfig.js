@@ -11,4 +11,7 @@ module.exports = {
   WEBHOOK_ID: process.env.WEBHOOK_ID,
   WEBHOOK_TOKEN: process.env.WEBHOOK_TOKEN,
   SECRET_KEY_JWT: process.env.SECRET_KEY_JWT,
+  MAIL_USER: process.env.MAIL_USER,
+  MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+  CRYPTO_SECRET_KEY: process.env.CRYPTO_SECRET_KEY,
 };

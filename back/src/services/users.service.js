@@ -4,6 +4,8 @@ const http = require("http");
 const { passwordEncoder, passwordValidation } = require("../security/bcrypt");
 const { generateToken } = require("../security/jwt");
 const UserRepository = require("../repositories/users.repository");
+const sendWelcomeMail = require("../emails/sendWelcomeMail");
+const crypto = require("../security/crypto");
 
 const options = {
   hostname: "localhost",
@@ -138,6 +140,18 @@ class UserService {
           }
         });
       }
+
+      //Generate ciphertoken
+      const dataToken = { name, lastname, email };
+      const token = generateToken(dataToken);
+
+      const ciptherDataToken = JSON.stringify({ email, token });
+
+      const cipherToken = crypto.encryptText(ciptherDataToken);
+
+      //Send email
+      const mailData = { name, email, token: cipherToken };
+      sendWelcomeMail(mailData);
 
       return userSaved;
     } catch (error) {

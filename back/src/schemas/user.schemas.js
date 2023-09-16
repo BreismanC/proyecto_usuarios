@@ -10,14 +10,14 @@ const userSchemas = {
       .empty()
       .min(1)
       .max(100)
-      .pattern(/^[A-Za-z]$/)
+      // .pattern(/^[A-Za-z]$/)
       .messages({
         "string.base": "El nombre debe ser de tipo texto",
         "any.required": "El nombre es obligatorio",
         "string.empty": "El nombre no debe estar vacío",
         "string.min": "El nombre debe tener al menos {#limit} caracteres",
         "string.max": "El nombre no debe tener más de {#limit} caracteres",
-        "string.pattern.base": "El nombre solo permite caracteres alfabéticos",
+        // "string.pattern.base": "El nombre solo permite caracteres alfabéticos",
       }),
     lastname: Joi.string()
       .trim()
@@ -26,15 +26,15 @@ const userSchemas = {
       .empty()
       .min(1)
       .max(100)
-      .pattern(/^[A-Za-z]$/)
+      // .pattern(/^[A-Za-z]$/)
       .messages({
         "string.base": "El apellido debe ser de tipo texto",
         "any.required": "El apellido es obligatorio",
         "string.empty": "El apellido no debe estar vacío",
         "string.min": "El apellido debe tener al menos {#limit} caracteres",
         "string.max": "El apellido no debe tener más de {#limit} caracteres",
-        "string.pattern.base":
-          "El apellido solo permite caracteres alfabéticos",
+        // "string.pattern.base":
+        //   "El apellido solo permite caracteres alfabéticos",
       }),
     email: Joi.string()
       .trim()
