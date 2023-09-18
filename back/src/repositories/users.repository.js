@@ -13,6 +13,12 @@ class UserRepository {
     return await models.users.findOne({ where: { email } });
   }
 
+  static async updateFieldUserByEmail(payload, email) {
+    return await models.users.update(payload, {
+      where: { email },
+    });
+  }
+
   static async postUser(user) {
     return await models.users.create(user);
   }

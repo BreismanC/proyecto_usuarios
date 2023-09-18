@@ -99,6 +99,11 @@ const userSchemas = {
           "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial",
       }),
   }),
+  validateUser: Joi.object({
+    validatedUser: Joi.boolean().messages({
+      "boolean.base": "Validated user field must be a boolean type",
+    }),
+  }),
 };
 
 module.exports = userSchemas;

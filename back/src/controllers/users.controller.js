@@ -1,12 +1,11 @@
 const UserService = require("../services/users.service");
-const UsersService = require("../services/users.service");
 const fs = require("fs");
 
 class UserController {
   //Return the list of users
   static async getUsers(req, res) {
     try {
-      const users = await UsersService.getUsers();
+      const users = await UserService.getUsers();
 
       res.status(200).json({
         status: "SUCCESS",
@@ -26,7 +25,7 @@ class UserController {
   static async getUserById(req, res) {
     const { id } = req.params;
     try {
-      const user = await UsersService.getUserById(id);
+      const user = await UserService.getUserById(id);
       //Validate that the user if exists
       if (!user)
         return res.status(404).json({
@@ -85,7 +84,7 @@ class UserController {
     try {
       const user = { ...req.body };
       user.image = req.files ? { ...req.files.image } : null;
-      const newUser = await UsersService.postUser(user);
+      const newUser = await UserService.postUser(user);
 
       res.status(201).json({
         status: "SUCCESS",
@@ -102,6 +101,29 @@ class UserController {
     }
   }
 
+  static async validateEmail(req, res) {
+    try {
+      const { email } = req.user;
+      const { validatedUser } = req.body;
+
+      const userValidated = UserService.validateEmail(email, validatedUser);
+
+      if (!userValidated) {
+        return res.status(500).json({
+          status: "ERROR",
+          message: "Error al validar al usuario",
+        });
+      }
+      return res.sendStatus(204);
+    } catch (error) {
+      res.status(500).json({
+        status: "ERROR",
+        message: "HA ocurrido un error al validar al usuario",
+        details: error.message,
+      });
+    }
+  }
+
   //Modify an user by ID
   static async updateUser(req, res) {
     const { id } = req.params;
@@ -109,7 +131,7 @@ class UserController {
     try {
       const user = { ...req.body };
       user.image = req.files ? { ...req.files.image } : null;
-      const userUpdated = await UsersService.updateUser(id, user);
+      const userUpdated = await UserService.updateUser(id, user);
 
       if (!userUpdated) {
         return res.status(404).json({
@@ -184,11 +206,15 @@ class UserController {
       });
     }
   }
+
   static async updateLastnameByEmail(req, res) {
     const lastname = req.body.lastname;
     const user = req.user;
     try {
-      const userUpdated = await UserService.updateLastnameByEmail(lastname, user);
+      const userUpdated = await UserService.updateLastnameByEmail(
+        lastname,
+        user
+      );
 
       if (!userUpdated) {
         return res.status(404).json({
@@ -213,7 +239,7 @@ class UserController {
     const { id } = req.params;
 
     try {
-      const userDeleted = await UsersService.deleteUser(id);
+      const userDeleted = await UserService.deleteUser(id);
       if (!userDeleted) {
         return res.status(404).json({
           status: "ERROR",

@@ -32,6 +32,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "Unknown_person",
       },
+      validatedUser: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+        field: "validated_user",
+        comment: "this field indicates whether the user has been validated.",
+      },
     },
     {
       timestamps: true,

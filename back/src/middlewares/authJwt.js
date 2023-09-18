@@ -13,14 +13,13 @@ const tokenValidation = async (req, res, next) => {
   try {
     const decoded = verifyToken(token);
 
-    console.log(decoded);
     req.user = decoded;
 
     next();
   } catch (error) {
-    res.status(401).json({
+    res.status(498).json({
       status: "ERROR",
-      message: "No autorizado",
+      message: "Token inválido o expirado",
       details: error.message,
     });
   }

@@ -24,11 +24,21 @@ router
   );
 
 router
+  .route("/email-validate")
+  .patch(
+    tokenValidation,
+    validationSchema(userSchemas.validateUser),
+    usersController.validateEmail
+  );
+
+router
   .route("/password")
   .put(tokenValidation, usersController.updatePasswordByEmail);
 
 router.route("/name").put(tokenValidation, usersController.updateNameByEmail);
-router.route("/lastname").put(tokenValidation, usersController.updateLastnameByEmail);
+router
+  .route("/lastname")
+  .put(tokenValidation, usersController.updateLastnameByEmail);
 
 router
   .route("/sign-in")

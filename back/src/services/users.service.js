@@ -159,6 +159,24 @@ class UserService {
     }
   }
 
+  static async validateEmail(email, validatedUser) {
+    try {
+      const payload = { validatedUser };
+      const userValidated = await UserRepository.updateFieldUserByEmail(
+        payload,
+        email
+      );
+
+      if (!userValidated) {
+        return;
+      }
+
+      return userValidated;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async updateUser(id, user) {
     let hashedPassword;
     try {
