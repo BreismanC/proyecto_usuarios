@@ -141,17 +141,12 @@ class UserService {
         });
       }
 
-      //Generate ciphertoken
-      const dataToken = { name, lastname, email };
-      const token = generateToken(dataToken);
-
-      const ciptherDataToken = JSON.stringify({ email, token });
-
-      const cipherToken = crypto.encryptText(ciptherDataToken);
-
-      //Send email
-      const mailData = { name, email, token: cipherToken };
-      sendWelcomeMail(mailData);
+      //Generate token and send message
+      const response = this.generateTokenAndSendMessageNewUser(email);
+      if (!response) {
+        throw new Error("No se pudo enviar mensaje al usuario");
+      }
+      console.log({ response });
 
       return userSaved;
     } catch (error) {
@@ -175,6 +170,27 @@ class UserService {
     } catch (error) {
       throw error;
     }
+  }
+
+  static async generateTokenAndSendMessageNewUser(email) {
+    const userFound = UserRepository.getUserByEmail(email);
+    if (!userFound) {
+      return;
+    }
+    const { name, lastname } = userFound;
+
+    const dataToken = { name, lastname, email };
+    const token = generateToken(dataToken);
+
+    const ciptherDataToken = JSON.stringify({ email, token });
+
+    const cipherToken = crypto.encryptText(ciptherDataToken);
+
+    //Send email
+    const mailData = { name, email, token: cipherToken };
+    sendWelcomeMail(mailData);
+
+    return "Mensaje enviado";
   }
 
   static async updateUser(id, user) {

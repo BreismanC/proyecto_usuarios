@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
 const path = require("path");
@@ -11,18 +12,8 @@ const appConfig = (app) => {
   //Permite la transferencia de archivos en formato JSON
   app.use(express.json());
 
-  //Evitar problemas de cors
-  //Configuraciones de cabecera
-  //Permite las funciones de HTTP
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    next();
-  });
+  //Permite evitar problemas con CORS
+  app.use(cors());
 
   //Creación de logs por cada petición hecha
   app.use(morgan("dev"));

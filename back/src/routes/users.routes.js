@@ -32,6 +32,13 @@ router
   );
 
 router
+  .route("/resend-message-email-validate")
+  .post(
+    validationSchema(userSchemas.validateEmail),
+    usersController.reSendMessageEmailValidate
+  );
+
+router
   .route("/password")
   .put(tokenValidation, usersController.updatePasswordByEmail);
 

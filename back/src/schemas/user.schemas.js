@@ -104,6 +104,20 @@ const userSchemas = {
       "boolean.base": "Validated user field must be a boolean type",
     }),
   }),
+  validateEmail: Joi.object({
+    email: Joi.string()
+      .trim()
+      .lowercase()
+      .required()
+      .empty()
+      .email({ minDomainSegments: 2 })
+      .messages({
+        "string.base": "El correo debe ser de tipo texto",
+        "any.required": "El correo electrónico es obligatorio",
+        "string.empty": "El correo electrónico no debe estar vacío",
+        "string.email": "El correo electrónico debe tener un formato válido",
+      }),
+  }),
 };
 
 module.exports = userSchemas;

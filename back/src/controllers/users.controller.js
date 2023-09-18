@@ -118,7 +118,34 @@ class UserController {
     } catch (error) {
       res.status(500).json({
         status: "ERROR",
-        message: "HA ocurrido un error al validar al usuario",
+        message: "Ocurrió un error al validar al usuario",
+        details: error.message,
+      });
+    }
+  }
+
+  static async reSendMessageEmailValidate(req, res) {
+    try {
+      const email = req.body.email;
+      const response = await UserService.generateTokenAndSendMessageNewUser(
+        email
+      );
+
+      if (!response) {
+        return res.status(404).json({
+          status: "ERROR",
+          message: "Usuario no encontrado",
+        });
+      }
+
+      return res.status(200).json({
+        status: "SUCCESS",
+        message: response,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: "ERROR",
+        message: "Ocurrió un error al reenviar el correo",
         details: error.message,
       });
     }
