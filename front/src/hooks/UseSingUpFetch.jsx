@@ -20,8 +20,6 @@ export const UseSignUpFetch = () => {
       const { details } = data;
       console.log(details);
       Swal.fire("Usuario creado.", "Debes validar el email", "success");
-      // navigate(PUBLIC_ROUTES.SIGN_IN);
-      // navigate(PUBLIC_ROUTES.VALIDATE_EMAIL); //TODO crear la ruta de validación de usuarios
     } catch (e) {
       setError(e.message);
       console.log(e);

@@ -3,7 +3,6 @@ import {
   clearLocalStorage,
   persistLocalStorage,
 } from "@utilities/localStorage.utility";
-import { tokenEncoder } from "@security/bcrypt";
 
 export const tokenEmptyState = null;
 
@@ -14,8 +13,6 @@ export const tokenSlice = createSlice({
   initialState: localStorage.getItem(TokenKey) || tokenEmptyState,
   reducers: {
     createToken: (state, action) => {
-      // const hashedToken = await tokenEncoder(action.payload);
-      // persistLocalStorage(TokenKey, hashedToken);
       persistLocalStorage(TokenKey, action.payload);
       return action.payload;
     },
