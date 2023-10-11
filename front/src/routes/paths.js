@@ -7,5 +7,6 @@ export const PUBLIC_ROUTES = {
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
   EMAIL_VALIDATE: "/email-validate",
+  UPLOAD_IMAGES: "/upload-images",
   NOT_FOUND: "*",
 };

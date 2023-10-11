@@ -173,7 +173,7 @@ class UserService {
   }
 
   static async generateTokenAndSendMessageNewUser(email) {
-    const userFound = UserRepository.getUserByEmail(email);
+    const userFound = await UserRepository.getUserByEmail(email);
     if (!userFound) {
       return;
     }

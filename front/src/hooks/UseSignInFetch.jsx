@@ -19,7 +19,7 @@ export const UseSignInFetch = () => {
 
     try {
       const { data } = await getUserByEmailAndPassword(
-        "users/sign-in",
+        "users/sign-in?stayLoggedIn=true",
         dataToFetch
       );
 
