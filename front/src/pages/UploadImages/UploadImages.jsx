@@ -36,28 +36,32 @@ const imagenes = [
 
 export const UploadImages = () => {
   const [image, setImage] = useState(null);
+  const [imageRender, setImageRender] = useState();
 
   const handleImages = (event) => {
     setImage(event.target.files[0]);
   };
 
   const enviarImagenes = async () => {
-    const endpoint = "http://localhost:3000/upload-images";
+    const endpoint = "http://localhost:3000/images";
 
-      const formData = new FormData();
+    const formData = new FormData();
 
-      formData.append("src", imagenes[0].SRC);
-      formData.append("alt", imagenes[0].ALT);
-      formData.append("height", imagenes[0].HEIGHT);
-      formData.append("width", imagenes[0].WIDTH);
-      formData.append("images-collections", image);
+    formData.append("src", imagenes[0].SRC);
+    formData.append("alt", imagenes[0].ALT);
+    formData.append("height", imagenes[0].HEIGHT);
+    formData.append("width", imagenes[0].WIDTH);
+    formData.append("images-collections", image);
 
     const response = await fetch(endpoint, {
       method: "POST",
       body: formData,
     });
-
-    console.log(response);
+    const data = await response.json();
+    console.log(data);
+    if (data.status === "SUCCESS") {
+      setImageRender(data.details.imageName);
+    }
   };
 
   return (
@@ -71,6 +75,11 @@ export const UploadImages = () => {
         handleClick={enviarImagenes}
         onChange={handleImages}
       />
+      {imageRender && (
+        <img
+          src={`https://test-upload-files-bacv.s3.amazonaws.com/${imageRender}`}
+        />
+      )}
     </section>
   );
 };

@@ -10,7 +10,7 @@ const initRoutes = () => {
   router.use("/webhook/", webhookUsers);
   router.use("/users", usersRoutes);
   router.use("/commits", commitsRoutes);
-  router.use("/upload-images", uploadImages);
+  router.use("/images", uploadImages);
 
   return router;
 };
